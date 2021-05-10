@@ -1,0 +1,41 @@
+{
+  "name": "maowebsite",
+  "version": "1.0.0",
+  "description": "School math club website",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "webpack --watch",
+    "start": "webpack serve --open",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Asinphi/maowebsite.git"
+  },
+  "author": "Asinphi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Asinphi/maowebsite/issues"
+  },
+  "homepage": "https://github.com/Asinphi/maowebsite#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.2.5",
+    "css-loader": "^5.2.4",
+    "dotenv": "^9.0.0",
+    "fibers": "^5.0.0",
+    "mini-css-extract-plugin": "^1.6.0",
+    "postcss-loader": "^5.2.0",
+    "sass": "^1.32.12",
+    "sass-loader": "^11.0.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.36.2",
+    "webpack-cli": "^4.7.0"
+  },
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
+  "dependencies": {
+    "three": "^0.128.0"
+  }
+}

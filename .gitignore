@@ -1,3 +1,7 @@
+__pycache__/
+.idea/
+.vcscode/
+
 # Logs
 logs
 *.log
