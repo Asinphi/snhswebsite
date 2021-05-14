@@ -1,6 +1,7 @@
 __pycache__/
 .idea/
 .vcscode/
+static/
 
 # Logs
 logs
