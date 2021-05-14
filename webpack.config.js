@@ -24,7 +24,31 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.module\.s(a|c)ss$/i,
+                use: [
+                    isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
+                    {
+                        loader: "css-loader",
+                        options: {
+                            modules: true,
+                            sourceMap: isDevelopment,
+                        }
+                    },
+                    {
+                        loader: "sass-loader",
+                        options: {
+                            sourceMap: isDevelopment,
+                            sassOptions: {
+                                indentWidth: 4,
+                                includePaths: ["utils/styles"]
+                            },
+                        }
+                    }
+                ],
+            },
+            {
+                test: /\.s(a|c)ss$/i,
+                exclude: /\.module\.s(a|c)ss$/i,
                 use: [
                     // Creates `style` nodes from JS strings
                     isDevelopment ? "style-loader" : MiniCssExtractPlugin.loader,
@@ -33,13 +57,17 @@ module.exports = {
                         loader: "css-loader",
                         options: {
                             sourceMap: isDevelopment,
-                        }
+                        },
                     },
                     // Compiles Sass to CSS
                     {
                         loader: "sass-loader",
                         options: {
-                            sourceMap: isDevelopment
+                            sourceMap: isDevelopment,
+                            sassOptions: {
+                                indentWidth: 4,
+                                includePaths: ["utils/styles"]
+                            }
                         }
                     }
                 ],
