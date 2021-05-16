@@ -37,6 +37,10 @@ div.parallax {
 			rgba(16, 55, 115, 1) 72%,
 			rgba(15, 124, 214, 1) 93%
 		);
+
+		.viewport-inner-container {
+			width: 100%;
+		}
 	}
 }
 
@@ -61,7 +65,7 @@ canvas {
 	}
 }
 
-.panel-check + .btn-panel {
+.panel-check + .panel .btn-panel {
 	position: absolute;
 	left: 100%;
 	top: 50%;
@@ -73,19 +77,22 @@ canvas {
 	background-color: rgba(0, 0, 0, 0.5);
 	overflow-x: hidden;
 	transition: width 0.3s ease-out;
+	pointer-events: none;
 }
 
-.panel-check:checked + .btn-panel {
+.panel-check:checked + .panel .btn-panel {
 	width: 0px;
+	pointer-events: all;
 }
 
 .panel {
 	position: absolute;
 	background-color: rgba(0, 0, 0, 0.5);
-	z-index: 1000;
+	z-index: 1050;
 	overflow-x: visible;
 	height: 100%;
 	padding: 10px;
+	transition: transform 0.3s ease-out;
 
 	@include media-breakpoint-up(lg) {
 		transform: translateX(calc(-100% - 30px));
@@ -97,4 +104,22 @@ canvas {
 		width: 100%;
 	}
 
+}
+
+.panel-check:checked + .panel {
+	transition: transform 1s ease-out;
+	transform: none;
+}
+
+.panel-hover:hover ~ .panel-check:not(:checked) + .panel {
+	transition: transform 0.3s ease-out;
+	transform: translateX(-100%);
+}
+
+.panel-check:checked ~ .viewport-outer-container .viewport-inner-container {
+	width: 60%;
+}
+
+.viewport-inner-container {
+	transition: width 1s ease-out;
 }

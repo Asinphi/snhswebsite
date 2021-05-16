@@ -97,8 +97,11 @@ loadManager.onLoad = () => {
 		onComplete: () => {
 			playLogoAnimation();
 			setTimeout(() => {
-				if (!document.querySelector('.panel-check').checked)
-					toggleNewsPanel();
+				const checkbox = document.querySelector('.panel-check')
+				if (!checkbox.checked && !checkbox.initialCheck) {
+					checkbox.checked = true;
+					checkbox.dispatchEvent(new Event('change'));
+				}
 			}, 3200)
 		},
 		defaults: {
@@ -119,86 +122,37 @@ loadManager.onLoad = () => {
 	}, "<");
 }
 
-const newsPanel = document.querySelector('.important-news');
-const newsOpenTl = gsap.timeline({
-	paused: true,
-	defaults: {
-		duration: 1,
-		ease: "power1.out",
-	},
-}).to(canvas.parentElement, {
-	width: "60%",
-	onUpdate: () => {
-		resizeCanvas();
-	}
-}).to(newsPanel, {
-	transform: `translate${isLargeDevice ? 'X' : 'Y'}(0px)`,
-}, '<');
-
-const newsCloseTl = gsap.timeline({
-	paused: true,
-	defaults: {
-		duration: 1,
-		ease: "power1.in",
-	},
-}).to(canvas.parentElement, {
-	width: "100%",
-	onUpdate: () => {
-		resizeCanvas();
-	}
-}).to(newsPanel, {
-	transform: `translate${isLargeDevice ? 'X' : 'Y'}(-100%)`,
-}, '<').to(newsPanel, {
-	transform: `translate${isLargeDevice ? 'X' : 'Y'}(calc(-100% - 30px))`,
-	duration: 0.3,
-}, '+=1.5');
-
-function toggleNewsPanel(open = true) {
-	console.log("News panel toggled:", open);
-	if (open) {
-		document.querySelector('.panel-check').checked = true;
-		newsOpenTl.restart();
-	} else {
-		document.querySelector('.panel-check').checked = false;
-		newsCloseTl.restart();
-	}
-}
 {
-	const checkbox = document.getElementById("news-panel-toggle")
+	const panel = document.querySelector('.panel');
+	const checkbox = document.getElementById('news-panel-toggle')
+	const expandPanelBtn = document.querySelector('.btn-panel');
 	checkbox.addEventListener('change', function() {
-		const open = this.checked;
-		if (open) {
-			newsCloseTl.pause();
-		} else {
-			newsOpenTl.pause();
+		this.initialCheck = true;
+		if (!this.checked) {
+			panel.style.transform = "translateX(-100%)";
+			panel.style.transition = "transform 1s ease-out";
+			setTimeout(() => panel.style.transition = "", 1000);
+			setTimeout(() => panel.style.transform = "", 2000);
 		}
-		toggleNewsPanel(open);
 	});
-	document.querySelector(".important-news .btn-close").addEventListener('click', () => toggleNewsPanel(false));
-	let hoverEl = document.querySelector(".news-panel-hover");
-	hoverEl.addEventListener('click', function(e) {
+
+	document.querySelector('.panel .btn-close').addEventListener('click', () => {
+		checkbox.checked = false;
+		checkbox.dispatchEvent(new Event('change'));
+	});
+
+	document.querySelector(".panel-hover").addEventListener('click', function(e) {
+		if (checkbox.checked)
+			return;
 		this.style.pointerEvents = "none";
-		document.elementFromPoint(e.clientX, e.clientY).click();
-		this.style.pointerEvents = "auto";
+		expandPanelBtn.style.pointerEvents = "all"; // Allow it to be hit by elementFromPoint
+		if (expandPanelBtn == document.elementFromPoint(e.clientX, e.clientY)) {
+			checkbox.checked = true;
+			checkbox.dispatchEvent(new Event('change'));
+		}
+		this.style.pointerEvents = "";
+		expandPanelBtn.style.pointerEvents = "";
 	});
-	hoverEl.addEventListener('mouseenter', function() {
-		if (checkbox.checked || newsCloseTl.isActive())
-			return;
-		gsap.to(newsPanel, {
-			duration: 0.5,
-			ease: "power2.out",
-			transform: "translateX(-100%)",
-		});
-	});
-	hoverEl.addEventListener('mouseleave', function() {
-		if (checkbox.checked || newsCloseTl.isActive())
-			return;
-		gsap.to(newsPanel, {
-			duration: 0.3,
-			ease: "power2.in",
-			transform: "translateX(calc(-100% - 30px))",
-		});
-	})
 }
 
 /*
@@ -234,6 +188,8 @@ let isMouseOver = false;
 let mouseOverDebounce = 0;
 let mouseTween;
 gsap.ticker.add(() => {
+	if (canvas.width != canvas.parentElement.clientWidth)
+		resizeCanvas();
 	if (rootChild != undefined)
 		rootChild.rotation.set(-mouse.y * 0.1, 0, -mouse.x * 0.1);
 	raycaster.setFromCamera(mouse, camera);
