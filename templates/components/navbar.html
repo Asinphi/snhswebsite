@@ -1,0 +1,75 @@
+<div>
+    <nav id="navbar" class="nav-bar">
+        <a href="/community">Community</a>
+        <a href="/competitions">Competitions</a>
+        <a href="/practices">Practices</a>
+        <a href="/meetings">Meetings</a>
+        <a href="/tutoring">Tutoring</a>
+        <a href="/points">Points</a>
+        <a href="/archive">Archive</a>
+        <a href="/officers">Officers</a>
+        <a href="/FAQ">FAQ</a>
+        {% if name is not none %}
+            <a id="me" class="dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" href="/profile/{{ id }}">{{ name }}</a>
+            <ul class="dropdown-menu" aria-labelledby="me">
+                <li class="dropdown-item"><a href="javascript:logout();">Logout</a></li>
+            </ul>
+        {% else %}
+            <a id="login" class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" href="javascript:;">Login</a>
+            <ul class="dropdown-menu" aria-labelledby="login">
+                <form id="login-form" action="/auth/cookie/login" method="POST" class="px-4 py-3" onsubmit="return login()">
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input name="username" type="email" class="form-control" id="email" placeholder="email@example.com" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                    </div> 
+                    <button type="submit" form="login-form" class="login-form__submit btn btn-primary">Sign in</button>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Forgot password?</a>
+                </form>
+            </ul>
+        {% endif %}
+    </nav>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script type="text/javascript">
+        const req = new XMLHttpRequest();
+        req.onreadystatechange = function() {
+            if (req.readyState != 4 || req.status != 200) return;
+            document.getElementById('navbar').parentElement.innerHTML = req.responseText;
+        };
+
+        function logout() {
+            axios.post('/auth/cookie/logout').then(() => {
+                req.open("GET", "/nav-bar" , true);
+                req.send(null);
+            });
+        }
+
+        function login() {
+            const form = document.getElementById("login-form");
+
+            axios.post(
+                '/auth/cookie/login',
+                new FormData(form),
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                },
+            ).then(response => {
+                console.log("Login success:", response);
+                
+                req.open("GET", "/nav-bar" , true);
+                req.send(null);
+            }).catch(err => {
+                document.getElementById('password').style.border = '2px solid red';
+                console.log("Login error", err);
+            });
+
+            return false;
+        }
+    </script>
+</div>

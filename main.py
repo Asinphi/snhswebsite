@@ -1,19 +1,13 @@
-from fastapi import FastAPI, Request
-from fastapi.templating import Jinja2Templates
-from fastapi.staticfiles import StaticFiles
+from fastapi import Request, Depends
 
-app = FastAPI()
-
-app.mount("/static", StaticFiles(directory="static"), name="static")
-app.mount("/assets", StaticFiles(directory="assets"), name="assets")
-
-templates = Jinja2Templates(directory="templates")
-
-
-def render_template(path: str, request: Request, **kwargs):
-    return templates.TemplateResponse(path, {"request": request, **kwargs})
+from app import app, render_template
+from users import User, fastapi_users
 
 
 @app.get("/")
-async def root(request: Request):
-    return render_template("index.html", request)
+async def root(request: Request, user: User = Depends(fastapi_users.current_user(active=True, optional=True))):
+    return render_template("index.html", request, name=user.name if user else None, id=user.id if user else None)
+
+@app.get("/nav-bar")
+async def nav_bar(request: Request, user: User = Depends(fastapi_users.current_user(active=True, optional=True))):
+    return render_template("/components/navbar.html", request, name=user.name if user else None, id=user.id if user else None)

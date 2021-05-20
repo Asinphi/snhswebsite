@@ -1,0 +1,24 @@
+.nav-bar {
+	position: sticky;
+	top: 0;
+	display: flex;
+	justify-content: space-around;
+	height: 60px;
+	background-color: rgba(15, 77, 214, 1);
+	border-style: solid;
+	border-width: medium 0 medium 0;
+	border-color: white;
+
+	& > a {
+		color: whitesmoke !important;
+		margin: auto;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-weight: 400;
+		text-shadow: 0 0 10px #00e6e6;
+	}
+
+    #login.dropdown-toggle::after {
+        content: none; // Remove Bootstrap's dropdown caret
+    }
+}

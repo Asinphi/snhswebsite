@@ -4,9 +4,7 @@ jinja2
 uvicorn[standard]
 gunicorn
 aiofiles
-pytz
-PyYAML
-python-dateutil
 python-dotenv
 discord
-psycopg2
+fastapi-users[sqlalchemy]
+databases[postgresql]
