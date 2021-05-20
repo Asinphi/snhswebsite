@@ -1,9 +1,7 @@
 import "./style.scss";
-import { Scene, WebGLRenderer, PerspectiveCamera, Clock, PMREMGenerator, UnsignedByteType, Raycaster, Vector2,
-		LoadingManager } from 'three';
+import { Scene, WebGLRenderer, PerspectiveCamera, PMREMGenerator, UnsignedByteType, Raycaster, Vector2, LoadingManager } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
-// import { FlyControls } from 'three/examples/jsm/controls/FlyControls.js';
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -119,6 +117,8 @@ loadManager.onLoad = () => {
 			canvas.parentElement.parentElement.style.filter = `${filters.brightness}`;
 			canvas.style.filter = `${filters.blur}`;
 		}
+	}, "<").to(document.querySelector(".viewport-inner-container img"), {
+		opacity: 0.7,
 	}, "<");
 }
 
@@ -133,7 +133,8 @@ loadManager.onLoad = () => {
 			panel.style.transition = "transform 1s ease-out";
 			setTimeout(() => panel.style.transition = "", 1000);
 			setTimeout(() => panel.style.transform = "", 2000);
-		}
+		} else
+			panel.style.transform = "";
 	});
 
 	document.querySelector('.panel .btn-close').addEventListener('click', () => {
@@ -155,14 +156,17 @@ loadManager.onLoad = () => {
 	});
 }
 
-/*
-const controls = new FlyControls(camera, canvas);
-controls.movementSpeed = 2000;
-controls.rollSpeed = 0.1;
-controls.dragToLook = true;
-*/
-
-const clock = new Clock();
+{
+	const closeBtn = document.querySelector("#news-panel .btn-close");
+	const carouselEl = document.getElementById("news-panel");
+	document.querySelectorAll("#news-panel button").forEach(el => {
+		if (el == closeBtn)
+			return;
+		el.addEventListener('click', () => {
+			bootstrap.Carousel.getInstance(carouselEl).pause();
+		});
+	});
+}
 
 function resizeCanvas() {
 	const height = canvas.parentElement.clientHeight;
@@ -176,7 +180,8 @@ window.addEventListener('resize', resizeCanvas);
 
 const raycaster = new Raycaster();
 raycaster.far = 50000;
-const mouse = new Vector2(-1, -1);
+const mouse = new Vector2(-1, 0);
+const lookAt = new Vector2(-1, 0);
 
 window.addEventListener('mousemove', function(event) {
 	const boundingBox = canvas.getBoundingClientRect();
@@ -187,16 +192,19 @@ window.addEventListener('mousemove', function(event) {
 let isMouseOver = false;
 let mouseOverDebounce = 0;
 let mouseTween;
-gsap.ticker.add(() => {
+gsap.ticker.add((time, deltaTime) => {
 	if (canvas.width != canvas.parentElement.clientWidth)
 		resizeCanvas();
+	const dt = 1.0 - Math.pow(0.9, deltaTime * (60 / 1000));
+	lookAt.x += (mouse.x - lookAt.x) * dt;
+  	lookAt.y += (mouse.y - lookAt.y) * dt;
 	if (rootChild != undefined)
-		rootChild.rotation.set(-mouse.y * 0.1, 0, -mouse.x * 0.1);
+		rootChild.rotation.set(-lookAt.y * 0.1, 0, -lookAt.x * 0.1);
 	raycaster.setFromCamera(mouse, camera);
-	if (raycaster.intersectObjects(scene.children, true).length > 0 && clock.elapsedTime - mouseOverDebounce > 0.3) {
+	if (raycaster.intersectObjects(scene.children, true).length > 0 && time - mouseOverDebounce > 0.3) {
 		if (!isMouseOver) {
 			isMouseOver = true;
-			mouseOverDebounce = clock.elapsedTime;
+			mouseOverDebounce = time;
 			logoAnim.pause();
 			root.rotation.x = root.rotation.x % (2 * Math.PI);
 			if (mouseTween)
@@ -213,9 +221,9 @@ gsap.ticker.add(() => {
 				x: Math.round(root.rotation.x / (2 * Math.PI)) * 2 * Math.PI,
 			})
 		}
-	} else if (isMouseOver && clock.elapsedTime - mouseOverDebounce > 0.3) {
+	} else if (isMouseOver && time - mouseOverDebounce > 0.3) {
 		isMouseOver = false;
-		mouseOverDebounce = clock.elapsedTime;
+		mouseOverDebounce = time;
 		root.rotation.x = root.rotation.x % (2 * Math.PI);
 		if (mouseTween)
 			mouseTween.kill();
@@ -238,7 +246,5 @@ gsap.ticker.add(() => {
 			x: Math.round(root.rotation.x / (2 * Math.PI)) * 2 * Math.PI,
 		})
 	}
-	//controls.update(clock.getDelta());
-	clock.getDelta();
 	renderer.render(scene, camera);
 });
