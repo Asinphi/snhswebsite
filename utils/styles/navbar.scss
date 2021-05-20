@@ -22,3 +22,9 @@
         content: none; // Remove Bootstrap's dropdown caret
     }
 }
+
+.navbar__logo {
+	height: 200px;
+	left: 0;
+	transform: translateY(-50%);
+}

@@ -12,6 +12,9 @@ module.exports = {
     mode: process.env.NODE_ENV,
     entry: {
         index: "./src/index.js",
+        community: "./src/community.js",
+        discussion: "./src/discussion.js",
+        ["401"]: "./src/401.js",
     },
     devtool: 'inline-source-map',
     plugins: [

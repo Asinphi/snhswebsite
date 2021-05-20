@@ -17,7 +17,9 @@ def render_template(path: str, request: Request, **kwargs):
 
 
 @app.exception_handler(StarletteHTTPException)
-async def page_not_found_redirect(request: Request, exc: StarletteHTTPException):
+async def error_handler(request: Request, exc: StarletteHTTPException):
     if exc.status_code == 404:
         return render_template("404.html", request)
+    elif exc.status_code == 401:
+        return render_template("401.html", request, name=None)
     return await http_exception_handler(request, exc)

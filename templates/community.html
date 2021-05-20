@@ -1,0 +1,46 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block content %}
+{{ super() }}
+
+<div class="accordion modules" id="modules">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="modules__heading-one">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#modules__collapse-one" aria-expanded="false" aria-controls="modules__collapse-one">
+        Community Events
+      </button>
+    </h2>
+    <div id="modules__collapse-one" class="accordion-collapse collapse" aria-labelledby="modules__heading-one">
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="modules__heading-two">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#modules__collapse-two" aria-expanded="false" aria-controls="modules__collapse-two">
+        Polls
+      </button>
+    </h2>
+    <div id="modules__collapse-two" class="accordion-collapse collapse" aria-labelledby="modules__heading-two">
+    </div>
+  </div>
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="modules__heading-three">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#modules__collapse-three" aria-expanded="false" aria-controls="modules__collapse-three">
+        Discussions
+      </button>
+    </h2>
+    <div id="modules__collapse-three" class="accordion-collapse collapse" aria-labelledby="modules__heading-three">
+      <div class="accordion-body">
+        <div class="list-group list-group-flush">
+            <a class="list-group-item list-group-item-action" href="/community/discussions/prototype">Site Prototype</a>
+            <a class="list-group-item list-group-item-action" href="/community/discussion/ideas">Club Ideas</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/static/community.js" type="module"></script>
+{% endblock %}

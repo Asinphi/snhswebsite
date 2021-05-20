@@ -1,0 +1,11 @@
+{% extends "layout.html" %}
+
+{% block content %}
+{{ super() }}
+
+<div style="margin-top: 60px; margin-left: 60px;">
+    <span><strong>You must be a club member to perform this action. If you are a member, please log in.</strong></span>
+</div>
+
+<script src="/static/401.js" type="module"></script>
+{% endblock %}

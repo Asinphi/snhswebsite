@@ -1,0 +1,20 @@
+@use "navbar";
+
+.header__title {
+    margin: 10px;
+    margin-left: 200px;
+    font-size: 50px;
+    font-weight: 470;
+    color: whitesmoke;
+    text-shadow: 0 0 5px #fff, 0 0 20px #16b8b8;
+}
+
+.header {
+    top: 0;
+    position: sticky;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    background: rgb(11,34,94);
+    background: linear-gradient(128deg, rgba(11,34,94,1) 27%, rgba(23,71,135,1) 47%, rgba(13,51,78,1) 73%, rgba(55,71,117,1) 91%);
+}

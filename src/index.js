@@ -1,4 +1,4 @@
-import "./style.scss";
+import "./index.scss";
 import { Scene, WebGLRenderer, PerspectiveCamera, PMREMGenerator, UnsignedByteType, Raycaster, Vector2, LoadingManager } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';

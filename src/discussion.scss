@@ -1,0 +1,37 @@
+.thread {
+    background-color: whitesmoke;
+    width: 90%;
+    max-width: 1200px;
+    margin: 60px auto 0 auto;
+    padding: 15px;
+    border-radius: 15px 15px 0 0;
+    border-style: solid;
+    border-width: 3px 3px 0 3px;
+    border-color: rgb(96, 118, 138);
+    box-shadow: -2px 2px 1px 2px rgb(153, 152, 156);
+}
+
+.thread__title {
+    margin-bottom: 0px;
+}
+
+.thread__author {
+    color: gray;
+}
+
+.thread__body {
+    margin-top: 30px;
+}
+
+.thread__write-reply {
+    width: 100%;
+    background-color: whitesmoke;
+    height: 200px;
+    border-style: solid;
+    border-width: 3px 0 0 0;
+    border-color: rgb(96, 118, 138);
+
+    .thread__write-reply__textbox {
+        height: 140px;
+    }
+}
