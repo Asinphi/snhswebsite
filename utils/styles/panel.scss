@@ -1,0 +1,60 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
+
+.panel {
+	position: absolute;
+	background-color: rgba(0, 0, 0, 0.5);
+	z-index: 1050;
+	overflow-x: visible;
+	padding: 10px;
+	transition: transform 0.3s ease-out;
+
+	@include media-breakpoint-up(lg) {
+		transform: translateX(calc(-100% - 30px));
+		width: 45%;
+	}
+
+	@include media-breakpoint-down(md) {
+		transform: translateY(calc(-100% - 30px));
+		width: 100%;
+	}
+
+	@at-root .panel-check {
+		& + .panel .btn-panel {
+			position: absolute;
+			left: 100%;
+			top: 50%;
+			width: 30px;
+			height: 150px;
+			transform: translateY(-50%);
+			border: none;
+			border-radius: 0 10px 10px 0;
+			background-color: rgba(0, 0, 0, 0.5);
+			overflow-x: hidden;
+			transition: width 0.3s ease-out;
+			pointer-events: none;
+		}
+
+		&:checked {
+			& + .panel {
+				transition: transform 1s ease-out;
+				transform: none;
+
+				.btn-panel {
+					width: 0px;
+					pointer-events: all;
+				}
+			}
+
+			& ~ .viewport-outer-container .viewport-inner-container {
+				width: 55%;
+			}
+		}
+	}
+
+	@at-root .panel-hover:hover ~ .panel-check:not(:checked) + .panel {
+		//transition: transform 0.3s ease-out;
+		transform: translateX(-100%);
+	}
+}
