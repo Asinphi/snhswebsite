@@ -1,4 +1,5 @@
 import os
+from typing import Set
 
 import databases
 import sqlalchemy
@@ -12,11 +13,12 @@ from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from app import app
 
 DATABASE_URL = os.environ['DATABASE_URL']
-SECRET = "sadwasd"
+SECRET = os.environ['TOKEN']
+IS_DEVELOPMENT = os.environ['NODE_ENV'] == "development"
 
 
 class User(models.BaseUser):
-    name: str
+    name: str  # TODO Prevent JavaScript in this since it's directly injected into the HTML
     graduation_year: int
     points = 0
 
@@ -55,8 +57,17 @@ users = UserTable.__table__
 user_db = SQLAlchemyUserDatabase(UserDB, database, users)
 
 
+def user_dict(user: User, include: Set[str] = set(), exclude: Set[str] = set(), *args, defaults=True, **kwargs):
+    if user is None:
+        return {}
+    to_include = {'name', 'points', 'is_superuser'}.union(include) - exclude if defaults else include - exclude
+    return user.dict(include=to_include, *args, **kwargs)
+
+
+"""
 def on_after_register(user: UserDB, request: Request):
     print(f"User {user.id} has registered.")
+"""
 
 
 def on_after_forgot_password(user: UserDB, token: str, request: Request):
@@ -67,7 +78,7 @@ def after_verification_request(user: UserDB, token: str, request: Request):
     print(f"Verification requested for user {user.id}. Verification token: {token}")
 
 
-cookie_authentication = CookieAuthentication(secret=SECRET, lifetime_seconds=3600, cookie_secure=False)
+cookie_authentication = CookieAuthentication(secret=SECRET, cookie_secure=not IS_DEVELOPMENT)
 
 fastapi_users = FastAPIUsers(
     user_db,
@@ -80,9 +91,11 @@ fastapi_users = FastAPIUsers(
 app.include_router(
     fastapi_users.get_auth_router(cookie_authentication), prefix="/auth/cookie", tags=["auth"]
 )
+"""
 app.include_router(
     fastapi_users.get_register_router(on_after_register), prefix="/auth", tags=["auth"]
 )
+"""
 app.include_router(
     fastapi_users.get_reset_password_router(
         SECRET, after_forgot_password=on_after_forgot_password
