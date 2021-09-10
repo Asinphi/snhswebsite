@@ -6,21 +6,43 @@
 	height: 60px;
 	background-color: rgba(15, 77, 214, 1);
 	border-style: solid;
-	border-width: medium 0 medium 0;
+	border-width: 3px 0 3px 0;
 	border-color: white;
 
 	& > a {
 		color: whitesmoke !important;
-		margin: auto;
+		// margin: auto;
 		text-decoration: none;
 		text-transform: uppercase;
 		font-weight: 400;
 		text-shadow: 0 0 10px #00e6e6;
+		height: 100%;
+		padding-top: 15px;
 	}
 
     #login.dropdown-toggle::after {
         content: none; // Remove Bootstrap's dropdown caret
     }
+
+	.dropdown-menu {
+		border-radius: 0;
+		background-color: rgb(33, 100, 201);
+		border-style: solid;
+		border-width: 3px;
+		border-color: white;
+
+		.dropdown-item {
+			color: whitesmoke;
+
+			&:hover {
+				background-color: rgb(64, 127, 209);
+			}
+		}
+	}
+
+	label {
+		color: whitesmoke;
+	}
 }
 
 .navbar__logo {

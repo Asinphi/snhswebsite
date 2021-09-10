@@ -11,13 +11,18 @@
     <a href="/archive">Archive</a>
     <a href="/officers">Officers</a>
     <a href="/FAQ">FAQ</a>
-    {% if name is not none %}
-        <a id="me" class="dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" href="/profile/{{ id }}">{{ name }}</a>
+    {% if name is defined %}
+        <a id="me" class="dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" data-bs-offset="0,-0.5" aria-expanded="false" href="/profile/{{ id }}">{{ name }}</a>
         <div class="dropdown-menu" aria-labelledby="me">
+            <a class="dropdown-item" href="/profile/{{ id }}">Profile</a>
+            {% if is_superuser %}
+                <a class="dropdown-item" href="/admin">Admin Panel</a>
+            {% endif %}
+            <a class="dropdown-item" href="/points">Points: {{ points }}</a>
             <a class="dropdown-item" href="javascript:logout();">Logout</a>
         </div>
     {% else %}
-        <a id="login" class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false" href="javascript:;">Login</a>
+        <a id="login" class="dropdown-toggle" data-bs-toggle="dropdown" data-bs-offset="0,-0.5" data-bs-auto-close="outside" aria-expanded="false" href="javascript:;">Login</a>
         <ul class="dropdown-menu" aria-labelledby="login">
             <form id="login-form" action="/auth/cookie/login" method="POST" class="px-4 py-3" onsubmit="return login()">
                 <div class="mb-3">

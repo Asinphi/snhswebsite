@@ -17,4 +17,9 @@
     align-items: center;
     background: rgb(11,34,94);
     background: linear-gradient(128deg, rgba(11,34,94,1) 27%, rgba(23,71,135,1) 47%, rgba(13,51,78,1) 73%, rgba(55,71,117,1) 91%);
+    z-index: 200;
+}
+
+.navbar-container {
+    z-index: 300;
 }
