@@ -1,10 +1,13 @@
 pydantic
-fastapi<0.69.0
+fastapi==0.68.1
 jinja2
 uvicorn[standard]
 gunicorn
 aiofiles
-python-dotenv
+python-dotenv==0.15.0
 psycopg2
-fastapi-users[sqlalchemy]
-databases[postgresql]
+fastapi-users[sqlalchemy]==7.0.0
+starlette==0.14.2
+databases==0.5.2
+sqlalchemy==1.4.23
+py-bcrypt==0.4

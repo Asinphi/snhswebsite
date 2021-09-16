@@ -5,7 +5,7 @@ import databases
 import sqlalchemy
 from fastapi import Request
 from fastapi_users import FastAPIUsers, models
-from fastapi_users.authentication import CookieAuthentication, JWTAuthentication
+from fastapi_users.authentication import CookieAuthentication
 from fastapi_users.db import SQLAlchemyBaseUserTable, SQLAlchemyUserDatabase
 from sqlalchemy import Column, Text, SmallInteger
 from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
@@ -42,6 +42,7 @@ class UserDB(User, models.BaseUserDB):
 database = databases.Database(DATABASE_URL)
 Base: DeclarativeMeta = declarative_base()
 
+
 class UserTable(Base, SQLAlchemyBaseUserTable):
     name = Column(Text, index=True, nullable=False)
     graduation_year = Column(SmallInteger, nullable=False)
@@ -49,7 +50,8 @@ class UserTable(Base, SQLAlchemyBaseUserTable):
 
 
 engine = sqlalchemy.create_engine(
-    DATABASE_URL, connect_args={'sslmode': 'require'}, pool_size=1, max_overflow=0
+    "postgresql" + DATABASE_URL[DATABASE_URL.find(":"):], connect_args={'sslmode': 'require'}, pool_size=1,
+    max_overflow=0
 )
 Base.metadata.create_all(engine)
 
