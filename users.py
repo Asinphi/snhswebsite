@@ -1,6 +1,7 @@
 import os
 from typing import Set
 
+import dotenv
 import databases
 import sqlalchemy
 from fastapi import Request
@@ -12,6 +13,7 @@ from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 
 from app import app
 
+dotenv.load_dotenv('.env')
 DATABASE_URL = os.environ['DATABASE_URL']
 SECRET = os.environ['TOKEN']
 IS_DEVELOPMENT = os.environ['NODE_ENV'] == "development"
