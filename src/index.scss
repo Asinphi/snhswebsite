@@ -58,10 +58,14 @@ main {
 	}
 }
 
-canvas {
+#3d-viewport {
 	pointer-events: none;
 	opacity: 0;
 	filter: blur(5px);
+}
+
+#background-canvas {
+	position: absolute;
 }
 
 .progress {

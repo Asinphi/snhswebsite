@@ -3,14 +3,16 @@ import { Scene, WebGLRenderer, PerspectiveCamera, PMREMGenerator, UnsignedByteTy
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
+import ParticleImage from "./particleImage.js";
+
 
 gsap.registerPlugin(ScrollTrigger);
 
 const isLargeDevice = window.innerWidth >= 992;
 
 const canvas = document.getElementById("3d-viewport");
-canvas.height = window.innerHeight;
-canvas.width = document.body.clientWidth;
+canvas.height = canvas.parentElement.innerHeight;
+canvas.width = canvas.parentElement.clientWidth;
 
 const scene = new Scene();
 const renderer = new WebGLRenderer({canvas, alpha: true, premultipliedAlpha: false});
@@ -197,7 +199,7 @@ gsap.ticker.add((time, deltaTime) => {
 		resizeCanvas();
 	const dt = 1.0 - Math.pow(0.9, deltaTime * (60 / 1000));
 	lookAt.x += (mouse.x - lookAt.x) * dt;
-  	lookAt.y += (mouse.y - lookAt.y) * dt;
+	lookAt.y += (mouse.y - lookAt.y) * dt;
 	if (rootChild != undefined)
 		rootChild.rotation.set(-lookAt.y * 0.1, 0, -lookAt.x * 0.1);
 	raycaster.setFromCamera(mouse, camera);
@@ -248,3 +250,37 @@ gsap.ticker.add((time, deltaTime) => {
 	}
 	renderer.render(scene, camera);
 });
+
+{ // ParticleImage
+	const canvas = document.getElementById('background-canvas');
+	canvas.height = canvas.parentElement.clientHeight;
+	canvas.width = canvas.parentElement.clientWidth;
+	const scene = new Scene();
+	const camera = new PerspectiveCamera(50, canvas.parentElement.innerWidth / canvas.parentElement.innerHeight, 1, 10000);
+	camera.position.z = 300;
+	const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true});
+
+	function fovHeight() {
+		return 2 * Math.tan((camera.fov * Math.PI) / 180 / 2) * this.camera.position.z;
+	}
+
+	const particleImg = new ParticleImage(fovHeight());
+	scene.add(particleImg.container);
+
+	function resize() {
+		camera.aspect = canvas.parentElement.clientWidth / canvas.parentElement.clientHeight;
+		camera.updateProjectionMatrix();
+		particleImg.fovHeight = fovHeight();
+		renderer.setSize(canvas.parentElement.clientWidth, canvas.parentElement.clientHeight);
+		particleImg.resize();
+	}
+	resize();
+	document.addEventListener('resize', resize);
+
+	particleImg.init('/assets/TestImage.jfif');
+
+	gsap.ticker.add((time, deltaTime) => {
+		particleImg.update(deltaTime);
+		renderer.render(scene, camera);
+	});
+}
