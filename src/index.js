@@ -261,7 +261,7 @@ gsap.ticker.add((time, deltaTime) => {
 	const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true});
 
 	function fovHeight() {
-		return 2 * Math.tan((camera.fov * Math.PI) / 180 / 2) * this.camera.position.z;
+		return 2 * Math.tan((camera.fov * Math.PI) / 180 / 2) * camera.position.z;
 	}
 
 	const particleImg = new ParticleImage(fovHeight());
