@@ -74,6 +74,13 @@ module.exports = {
                     }
                 ],
             },
+            {
+                test: /\.(glsl|vs|fs|vert|frag)$/,
+                use: [
+                    'raw-loader',
+                    'glslify-loader'
+                ]
+            }
         ],
     }
 };

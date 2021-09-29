@@ -23,8 +23,10 @@
     "css-loader": "^5.2.4",
     "dotenv": "^9.0.0",
     "fibers": "^5.0.0",
+    "glslify-loader": "^2.0.0",
     "mini-css-extract-plugin": "^1.6.0",
     "postcss-loader": "^5.2.0",
+    "raw-loader": "^4.0.2",
     "sass": "^1.32.12",
     "sass-loader": "^11.0.1",
     "sass-toolkit": "^2.10.2",
@@ -38,6 +40,8 @@
   ],
   "dependencies": {
     "bootstrap": "^5.0.1",
+    "glsl-noise": "0.0.0",
+    "glslify": "^7.1.1",
     "three": "^0.128.0"
   }
 }
