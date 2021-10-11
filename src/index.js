@@ -277,10 +277,10 @@ gsap.ticker.add((time, deltaTime) => {
 	resize();
 	document.addEventListener('resize', resize);
 
-	particleImg.init('/assets/TestImage.jfif');
+	particleImg.init('/assets/TestImage1.png');
 
 	gsap.ticker.add((time, deltaTime) => {
-		particleImg.update(deltaTime);
+		particleImg.update(deltaTime / 1000);
 		renderer.render(scene, camera);
 	});
 }

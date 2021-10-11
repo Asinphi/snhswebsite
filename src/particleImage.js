@@ -29,9 +29,9 @@ export default class ParticleImage {
 			this.height = texture.image.height;
 
 			this.initPoints(true);
-			//this.initHitArea();
+			this.initHitArea();
 			//this.initTouch();
-			//this.resize();
+			this.resize();
 			this.show();
 		});
 	}
