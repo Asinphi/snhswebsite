@@ -1,4 +1,5 @@
 import os
+import asyncio
 from typing import Set
 
 import dotenv
@@ -14,7 +15,11 @@ from sqlalchemy.ext.declarative import DeclarativeMeta, declarative_base
 from app import app
 
 dotenv.load_dotenv('.env')
-DATABASE_URL = os.environ['DATABASE_URL']
+DATABASE_URL = os.environ.get('DATABASE_URL')  # sqlite:///C:/Users/0610028472/Downloads/maowebsite.db
+if DATABASE_URL.startswith('postgres'):
+    DATABASE_URL = "postgresql" + DATABASE_URL[DATABASE_URL.find(":"):]
+elif not DATABASE_URL:
+    DATABASE_URL = "sqlite://"
 SECRET = os.environ['TOKEN']
 IS_DEVELOPMENT = os.environ['NODE_ENV'] == "development"
 
@@ -52,9 +57,12 @@ class UserTable(Base, SQLAlchemyBaseUserTable):
 
 
 engine = sqlalchemy.create_engine(
-    "postgresql" + DATABASE_URL[DATABASE_URL.find(":"):], connect_args={'sslmode': 'require'}, pool_size=1,
-    max_overflow=0
+    DATABASE_URL  # , connect_args={'sslmode': 'require'}, pool_size=1,
+    # max_overflow=0
 )
+populate_users = False
+if DATABASE_URL == "sqlite://" or (DATABASE_URL.startswith("sqlite:///") and not os.path.exists(DATABASE_URL[10:])):
+    populate_users = True
 Base.metadata.create_all(engine)
 
 users = UserTable.__table__
@@ -125,3 +133,12 @@ async def startup():
 @app.on_event("shutdown")
 async def shutdown():
     await database.disconnect()
+
+if populate_users:
+    asyncio.create_task(
+        fastapi_users.create_user(
+            UserCreate(name="Foo bar", graduation_year=2022, points=0, email="example@gmail.com", password="foobar",
+                       is_verified=True, is_active=True),
+            True, True, True
+        )
+    )
