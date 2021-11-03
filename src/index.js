@@ -1,5 +1,6 @@
 import "./index.scss";
-import { Scene, WebGLRenderer, PerspectiveCamera, PMREMGenerator, UnsignedByteType, Raycaster, Vector2, LoadingManager } from 'three';
+import { Scene, WebGLRenderer, PerspectiveCamera, PMREMGenerator, UnsignedByteType, Raycaster, Vector2, LoadingManager,
+Color } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader.js';
 
@@ -95,6 +96,7 @@ loadManager.onLoad = () => {
 	gsap.timeline({
 		autoRemoveChildren: true,
 		onComplete: () => {
+			initParticles();
 			playLogoAnimation();
 			setTimeout(() => {
 				const checkbox = document.querySelector('.panel-check')
@@ -251,7 +253,7 @@ gsap.ticker.add((time, deltaTime) => {
 	renderer.render(scene, camera);
 });
 
-{ // ParticleImage
+function initParticles() { // ParticleImage
 	const canvas = document.getElementById('background-canvas');
 	canvas.height = canvas.parentElement.clientHeight;
 	canvas.width = canvas.parentElement.clientWidth;
@@ -264,7 +266,16 @@ gsap.ticker.add((time, deltaTime) => {
 		return 2 * Math.tan((camera.fov * Math.PI) / 180 / 2) * camera.position.z;
 	}
 
-	const particleImg = new ParticleImage(fovHeight());
+	let gradientStops = [
+		{ position: 0, color: new Color("rgb(68, 13, 78)") },
+		{ position: .21, color: new Color("rgb(251, 218, 252)") },
+		{ position: .46, color: new Color("rgb(233, 236, 36)") },
+		{ position: .72, color: new Color("rgb(74, 16, 115)") },
+		{ position: .93, color: new Color("rgb(121, 15, 214)") },
+		{ position: 1.0, color: new Color("rgb(121, 15, 214)") }
+	]
+
+	const particleImg = new ParticleImage(fovHeight(), null, gradientStops, 145 * (Math.PI / 180));
 	scene.add(particleImg.container);
 
 	function resize() {
@@ -275,9 +286,9 @@ gsap.ticker.add((time, deltaTime) => {
 		particleImg.resize();
 	}
 	resize();
-	document.addEventListener('resize', resize);
+	window.addEventListener('resize', resize);
 
-	particleImg.init('/assets/TestImage1.png');
+	particleImg.init('/assets/FrankieSnippet-removebg.png');
 
 	gsap.ticker.add((time, deltaTime) => {
 		particleImg.update(deltaTime / 1000);

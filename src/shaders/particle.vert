@@ -64,5 +64,6 @@ void main() {
 	mvPosition.xyz += position * psize;
 	vec4 finalPosition = projectionMatrix * mvPosition;
 
+	//gl_PointSize = 100.0;
 	gl_Position = finalPosition;
 }

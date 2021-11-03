@@ -1,19 +1,61 @@
 // adapted from https://github.com/brunoimbrizi/interactive-particles/blob/master/src/scripts/webgl/particles/Particles.js
 
 import { Object3D, TextureLoader, LinearFilter, RGBFormat, Vector2, InstancedBufferGeometry, RawShaderMaterial,
-BufferAttribute, InstancedBufferAttribute, Mesh, PlaneGeometry, MeshBasicMaterial } from 'three';
+BufferAttribute, InstancedBufferAttribute, Mesh, PlaneGeometry, MeshBasicMaterial, Color, DataTexture } from 'three';
 
 import vShader from './shaders/particle.vert';
 import fShader from './shaders/particle.frag';
 
 //import TouchTexture from './TouchTexture';
 
+const tempColor = new Color();
+
+function get255BasedColor(color) {
+    tempColor.set(color);
+    return tempColor.toArray().map(v => v * 255);
+}
+
+function makeRampTexture(stops, angle) {
+    // let's just always make the ramps 256x1
+    const res = 256;
+    const data = new Uint8Array(res * 3);
+    const mixedColor = new Color();
+
+    let prevX = 0;
+    for (let ndx = 1; ndx < stops.length; ++ndx) {
+        const nextX = Math.floor(Math.min(stops[ndx].position * res, res - 1) / 3) * 3;
+        if (nextX > prevX) {
+            const color0 = stops[ndx - 1].color;
+            const color1 = stops[ndx].color;
+            const diff = nextX - prevX;
+            for (let x = prevX; x <= nextX; ++x) {
+                const u = (x - prevX) / diff;
+                mixedColor.copy(color0);
+                mixedColor.lerp(color1, u);
+                data.set(get255BasedColor(mixedColor), x * 3);
+            }
+        }
+        prevX = nextX;
+    }
+
+    const texture =  new DataTexture(data, res, 1, RGBFormat);
+    texture.minFilter = LinearFilter;
+    texture.magFilter = LinearFilter;
+    //texture.rotation = angle;
+    //texture.repeat.set(1 / 1.42, 1 / 1.42); // sqrt(2) is maximum possible scale necessary at 45 degree angle
+	console.log(texture.image);
+    return texture;
+}
+
 export default class ParticleImage {
 
-	constructor(fovHeight, webgl) {
+	constructor(fovHeight, webgl, gradientStops, gradientAngle) {
 		this.fovHeight = fovHeight;
 		this.webgl = webgl;
 		this.container = new Object3D();
+		//this.gradientStops = gradientStops;
+		this.gradientAngle = gradientAngle;
+		this.colorRampTexture = makeRampTexture(gradientStops, gradientAngle);
 	}
 
 	init(src) {
@@ -32,7 +74,7 @@ export default class ParticleImage {
 			this.initHitArea();
 			//this.initTouch();
 			this.resize();
-			this.show();
+			this.show(10);
 		});
 	}
 
@@ -75,6 +117,10 @@ export default class ParticleImage {
 			uTextureSize: { value: new Vector2(this.width, this.height) },
 			uTexture: { value: this.texture },
 			uTouch: { value: null },
+            uColorRamp: { value: this.colorRampTexture },
+			//uRampWidth: { value: 256 },
+			uCosRampAngle: { value: Math.cos(this.gradientAngle) },
+			uSinRampAngle: { value: Math.sin(this.gradientAngle) },
 		};
 
 		const material = new RawShaderMaterial({
