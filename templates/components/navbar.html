@@ -1,6 +1,6 @@
 <nav id="navbar" class="nav-bar">
     {% if include_logo != false %}
-        <a class="m-0" href="/"><img class="navbar__logo" src="/assets/CBHSMao_logo.webp"></a>
+        <a class="m-0" href="/"><img class="navbar__logo" src="/assets/SNHS%20logo.png"></a>
     {% endif %}
     <a href="/community">Community</a>
     <a href="/competitions">Competitions</a>
@@ -32,7 +32,10 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
-                </div> 
+                    <div class="login-form__error login-form__error--unactivated">
+                        <span class="text-danger">Error. Cannot login.</span>
+                    </div>
+                </div>
                 <button type="submit" form="login-form" class="login-form__submit btn btn-primary">Sign in</button>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="#">Forgot password?</a>
@@ -78,6 +81,7 @@
             req.send(null);
         }).catch(err => {
             document.getElementById('password').style.border = '2px solid red';
+            document.querySelector(".login-form__error").classList.remove("login-form__error--unactivated");
             console.log("Login error", err);
         });
 

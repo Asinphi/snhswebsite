@@ -10,8 +10,23 @@ $enable-negative-margins: true;
 section {
 	width: 100%;
 	min-height: 100vh;
-	background-color: rgb(30, 107, 207);
+	background-color: rgb(142, 143, 187);
 	overflow: hidden;
+
+	> div {
+		@include media-breakpoint-up(lg) {
+			width: 55%;
+		}
+
+		@include media-breakpoint-down(md) {
+			width: 100%;
+			opacity: 0.5;
+		}
+
+		color: whitesmoke;
+		background-color: rgb(111, 48, 161);
+		padding: 60px;
+	}
 }
 
 main {
@@ -24,7 +39,7 @@ main {
 	}
 
 	width: 100%;
-	overflow-x: hidden;
+	overflow: hidden;
 	
 	/* background: rgb(13,51,78);
     background: radial-gradient(circle, rgba(13,51,78,1) 0%, rgba(23,71,135,1) 26%, rgba(16,55,115,1) 58%, rgba(24,82,130,1) 93%); */
@@ -34,11 +49,11 @@ main {
 		background: rgb(13, 51, 78);
 		background: linear-gradient(
 			145deg,
-			rgb(13, 51, 78) 0%,
-			rgb(218, 233, 252) 21%,
+			rgb(68, 13, 78) 0%,
+			rgb(251, 218, 252) 21%,
 			rgb(233, 236, 36) 46%,
-			rgb(16, 55, 115) 72%,
-			rgb(15, 124, 214) 93%
+			rgb(74, 16, 115) 72%,
+			rgb(121, 15, 214) 93%
 		);
 
 		.viewport-inner-container {
@@ -117,3 +132,5 @@ main {
 		transform: translateY(-50%);
 	}
 }
+
+

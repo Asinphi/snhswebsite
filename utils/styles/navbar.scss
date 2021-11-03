@@ -4,7 +4,7 @@
 	display: flex;
 	justify-content: space-around;
 	height: 60px;
-	background-color: rgba(15, 77, 214, 1);
+	background-color: rgb(79, 17, 179);
 	border-style: solid;
 	border-width: 3px 0 3px 0;
 	border-color: white;
@@ -15,7 +15,7 @@
 		text-decoration: none;
 		text-transform: uppercase;
 		font-weight: 400;
-		text-shadow: 0 0 10px #00e6e6;
+		text-shadow: 0 0 10px #d888e3;
 		height: 100%;
 		padding-top: 15px;
 	}
@@ -26,7 +26,7 @@
 
 	.dropdown-menu {
 		border-radius: 0;
-		background-color: rgb(33, 100, 201);
+		background-color: rgb(119, 45, 184);
 		border-style: solid;
 		border-width: 3px;
 		border-color: white;
@@ -35,7 +35,17 @@
 			color: whitesmoke;
 
 			&:hover {
-				background-color: rgb(64, 127, 209);
+				background-color: rgb(160, 87, 238);
+			}
+		}
+
+		.login-form__error {
+			overflow: hidden;
+			transition: height 0.5s ease-out;
+			height: 24px;
+
+			&.login-form__error--unactivated {
+				height: 0px;
 			}
 		}
 	}
