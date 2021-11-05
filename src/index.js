@@ -151,7 +151,7 @@ loadManager.onLoad = () => {
 			return;
 		this.style.pointerEvents = "none";
 		expandPanelBtn.style.pointerEvents = "all"; // Allow it to be hit by elementFromPoint
-		if (expandPanelBtn == document.elementFromPoint(e.clientX, e.clientY)) {
+		if (expandPanelBtn === document.elementFromPoint(e.clientX, e.clientY)) {
 			checkbox.checked = true;
 			checkbox.dispatchEvent(new Event('change'));
 		}
@@ -164,7 +164,7 @@ loadManager.onLoad = () => {
 	const closeBtn = document.querySelector("#news-panel .btn-close");
 	const carouselEl = document.getElementById("news-panel");
 	document.querySelectorAll("#news-panel button").forEach(el => {
-		if (el == closeBtn)
+		if (el === closeBtn)
 			return;
 		el.addEventListener('click', () => {
 			bootstrap.Carousel.getInstance(carouselEl).pause();
@@ -197,12 +197,12 @@ let isMouseOver = false;
 let mouseOverDebounce = 0;
 let mouseTween;
 gsap.ticker.add((time, deltaTime) => {
-	if (canvas.width != canvas.parentElement.clientWidth)
+	if (canvas.width !== canvas.parentElement.clientWidth)
 		resizeCanvas();
 	const dt = 1.0 - Math.pow(0.9, deltaTime * (60 / 1000));
 	lookAt.x += (mouse.x - lookAt.x) * dt;
-	lookAt.y += (mouse.y - lookAt.y) * dt;
-	if (rootChild != undefined)
+  	lookAt.y += (mouse.y - lookAt.y) * dt;
+	if (rootChild !== undefined)
 		rootChild.rotation.set(-lookAt.y * 0.1, 0, -lookAt.x * 0.1);
 	raycaster.setFromCamera(mouse, camera);
 	if (raycaster.intersectObjects(scene.children, true).length > 0 && time - mouseOverDebounce > 0.3) {
