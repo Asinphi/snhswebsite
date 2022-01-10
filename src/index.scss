@@ -8,24 +8,65 @@ $enable-negative-margins: true;
 
 
 section {
+	position: absolute;
 	width: 100%;
-	min-height: 100vh;
 	background-color: rgb(142, 143, 187);
 	overflow: hidden;
 
 	> div {
-		@include media-breakpoint-up(lg) {
-			width: 55%;
+		color: whitesmoke;
+		color: whitesmoke;
+		background-color: rgba(111, 48, 161, 0.5);
+		opacity: 90%;
+		width: 100%;
+	}
+
+	> div.about-us {
+		height: 100%;
+		padding: 50px 20%;
+
+		> p, h2 {
+			text-align: center;
 		}
+
+		> p {
+			font-size: larger;
+		}
+	}
+
+	> img {
+		display: block;
+		position: absolute;
+		width: 100%;
+		filter: brightness(0.3) blur(5px); //brightness(0.3) blur(10px);
+	}
+
+	> div.boxes-subsection {
+		display: flex;
+		justify-content: space-evenly;
+		flex-wrap: wrap;
 
 		@include media-breakpoint-down(md) {
-			width: 100%;
-			opacity: 0.5;
+			padding-top: 50px;
+			opacity: 99%;
+			background-color: #5663a5;
 		}
 
-		color: whitesmoke;
-		background-color: rgb(111, 48, 161);
-		padding: 60px;
+		> div {
+			width: 25vw;
+			height: 25vw;
+			background-color: #dbd47f;
+			box-shadow: 5px 5px 10px 2px #b5815c;
+			border-radius: 15px;
+			overflow-y: auto;
+			scrollbar-width: thin;
+			scrollbar-color: rgb(54, 54, 54);
+			padding: 20px 30px;
+			color: #717dab;
+			min-width: 266px;
+			min-height: 266px;
+			margin-bottom: 50px;
+		}
 	}
 }
 
