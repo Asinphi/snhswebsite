@@ -11,6 +11,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const isLargeDevice = window.innerWidth >= 992;
 
+{ // ScrollTrigger
+	gsap.to("div.boxes-subsection > div", {
+		scrollTrigger: {
+			trigger: "div.boxes-subsection",
+			start: "top center",
+		},
+		opacity: "100%",
+		transform: "translateY(0px)",
+		stagger: 0.2,
+		duration: 1,
+		ease: "power2.in",
+	})
+}
+
 const canvas = document.getElementById("3d-viewport");
 canvas.height = canvas.parentElement.innerHeight;
 canvas.width = canvas.parentElement.clientWidth;
