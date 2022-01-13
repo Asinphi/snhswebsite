@@ -8,13 +8,12 @@ $enable-negative-margins: true;
 
 
 section {
-	position: absolute;
+	position: relative; // so it can clip the absolutely-positioned image
 	width: 100%;
 	background-color: rgb(142, 143, 187);
 	overflow: hidden;
 
 	> div {
-		color: whitesmoke;
 		color: whitesmoke;
 		background-color: rgba(111, 48, 161, 0.5);
 		opacity: 90%;
