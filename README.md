@@ -1,5 +1,5 @@
-# maowebsite
+# snhswebsite
 
 
-View the live website here: https://maowebsite.herokuapp.com
+View the live website here: https://snhswebsite.herokuapp.com
 **(Not adapted for mobile just yet!)**
