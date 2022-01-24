@@ -15,11 +15,13 @@ const isLargeDevice = window.innerWidth >= 992;
 	gsap.to("div.boxes-subsection > div", {
 		scrollTrigger: {
 			trigger: "div.boxes-subsection",
-			start: "top center",
+			start: "top 90%"
 		},
 		opacity: "100%",
 		transform: "translateY(0px)",
-		stagger: 0.2,
+		stagger: function(index, target, list) {
+			return (index == 0 ? 0 : 0.2)
+		},
 		duration: 1,
 		ease: "power2.in",
 	})
