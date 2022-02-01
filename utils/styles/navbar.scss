@@ -7,26 +7,31 @@
 }
 
 .mobile-navbar__header {
+	@include media-breakpoint-up(lg) {
+		display: none;
+	}
+
 	position: fixed;
 	display: flex;
 	gap: 20px;
 	top: 0;
 	width: 100vw;
 	height: 40px;
-	background-color: rgba(87, 57, 108, 0.7);
+	background-color: rgba(87, 57, 108, 0.3);
 	color: whitesmoke;
 
 	& > h1 {
-		font-family: "Roboto", sans-serif;
+		line-height: 40px;
+		font-family: "Exo 2", sans-serif;
 		text-shadow: 0 0 5px #fff, 0 0 20px #16b8b8;
 		font-weight: bold;
-		font-size: 24px;
-		letter-spacing: 2px;
+		font-size: 29px;
+		letter-spacing: 3px;
 	}
 }
 
 .nav-bar {
-	@include media-breakpoint-down(md) {
+	@include media-breakpoint-down(lg) {
 		display: none;
 		position: fixed;
 		height: 40px;

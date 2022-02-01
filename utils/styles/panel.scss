@@ -15,8 +15,8 @@
 		width: 45%;
 	}
 
-	@include media-breakpoint-down(md) {
-		transform: translateY(calc(-100% - 30px));
+	@include media-breakpoint-down(lg) {
+		transform: translateY(100%);
 		width: 100%;
 	}
 
@@ -47,8 +47,16 @@
 				}
 			}
 
-			& ~ .viewport-outer-container .viewport-inner-container {
-				width: 55%;
+			@include media-breakpoint-up(lg) {
+				& ~ .viewport-outer-container .viewport-inner-container {
+					 width: 55%;
+				}
+			}
+
+			@include media-breakpoint-down(lg) {
+				& ~ .viewport-outer-container {
+					 height: 40%;
+				}
 			}
 		}
 	}

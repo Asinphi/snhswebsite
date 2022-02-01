@@ -9,7 +9,7 @@ import ParticleImage from "./particleImage.js";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const isLargeDevice = window.innerWidth >= 992;
+const isLargeDevice = () => window.innerWidth >= 992;
 
 { // ScrollTrigger
 	gsap.to("div.boxes-subsection > div", {
@@ -149,7 +149,7 @@ loadManager.onLoad = () => {
 	checkbox.addEventListener('change', function() {
 		this.initialCheck = true;
 		if (!this.checked) {
-			panel.style.transform = "translateX(-100%)";
+			panel.style.transform = isLargeDevice() ? "translateX(-100%)" : "translateY(100%)";
 			panel.style.transition = "transform 1s ease-out";
 			setTimeout(() => panel.style.transition = "", 1000);
 			setTimeout(() => panel.style.transform = "", 2000);
@@ -196,7 +196,8 @@ function resizeCanvas() {
 	renderer.setSize(width, height, false);
 }
 resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
+//window.addEventListener('resize', resizeCanvas);
+//new ResizeObserver(resizeCanvas).observe(document.querySelector(".viewport-inner-container"));
 
 const raycaster = new Raycaster();
 raycaster.far = 50000;
@@ -213,7 +214,7 @@ let isMouseOver = false;
 let mouseOverDebounce = 0;
 let mouseTween;
 gsap.ticker.add((time, deltaTime) => {
-	if (canvas.width !== canvas.parentElement.clientWidth)
+	if (canvas.width !== canvas.parentElement.clientWidth || canvas.height !== canvas.parentElement.clientHeight)
 		resizeCanvas();
 	const dt = 1.0 - Math.pow(0.9, deltaTime * (60 / 1000));
 	lookAt.x += (mouse.x - lookAt.x) * dt;
@@ -302,11 +303,14 @@ function initParticles() { // ParticleImage
 		particleImg.resize();
 	}
 	resize();
-	window.addEventListener('resize', resize);
+	//window.addEventListener('resize', resize);
+	//new ResizeObserver(resize).observe(document.querySelector('.viewport-outer-container'));
 
 	particleImg.init('/assets/FrankieSnippet-removebg.png');
 
 	gsap.ticker.add((time, deltaTime) => {
+		if (canvas.width !== canvas.parentElement.clientWidth || canvas.height !== canvas.parentElement.clientHeight)
+			resize();
 		particleImg.update(deltaTime / 1000);
 		renderer.render(scene, camera);
 	});

@@ -45,7 +45,7 @@ section {
 		justify-content: space-evenly;
 		flex-wrap: wrap;
 
-		@include media-breakpoint-down(md) {
+		@include media-breakpoint-down(lg) {
 			padding-top: 50px;
 			opacity: 99%;
 			background-color: #5663a5;
@@ -77,8 +77,8 @@ main {
 		height: calc(100vh - 60px);
 	}
 
-	@include media-breakpoint-down(md) {
-		height: 100%;
+	@include media-breakpoint-down(lg) {
+		height: 100vh;
 	}
 
 	width: 100%;
@@ -88,6 +88,7 @@ main {
     background: radial-gradient(circle, rgba(13,51,78,1) 0%, rgba(23,71,135,1) 26%, rgba(16,55,115,1) 58%, rgba(24,82,130,1) 93%); */
 
 	.viewport-outer-container {
+		height: 100%;
 		filter: brightness(0.3);
 		background: rgb(13, 51, 78);
 		background: linear-gradient(
@@ -98,12 +99,13 @@ main {
 			rgb(74, 16, 115) 72%,
 			rgb(121, 15, 214) 93%
 		);
+		transition: height 1s ease-out; // for mobile panel slide out
 
 		.viewport-inner-container {
 			width: 100%;
 			white-space: nowrap;
 			overflow: hidden;
-			transition: width 1s ease-out;
+			transition: width 1s ease-out; // for pc panel slide out
 
 			h1 {
 				position: absolute;
@@ -167,7 +169,15 @@ main {
 
 #news-panel {
 	color: whitesmoke;
-	height: calc(100vh - 60px);
+	@include media-breakpoint-up(lg) {
+		height: calc(100vh - 60px);
+	}
+
+	@include media-breakpoint-down(lg) {
+		top: 40%;
+		height: 60%;
+		z-index: -1;
+	}
 
 	.carousel-control-prev, .carousel-control-next {
 		height: 10%;
