@@ -10,4 +10,3 @@ fastapi-users[sqlalchemy]==7.0.0
 starlette==0.14.2
 databases[postgresql]==0.5.2
 sqlalchemy==1.4.23
-py-bcrypt==0.4

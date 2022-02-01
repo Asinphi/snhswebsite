@@ -1,3 +1,4 @@
+@use "style";
 @use "panel";
 @use "navbar";
 @import "bootstrap/scss/functions";
@@ -8,10 +9,17 @@ $enable-negative-margins: true;
 
 
 section {
+	display: flex;
+	flex-flow: column;
+	align-items: center;
 	position: relative; // so it can clip the absolutely-positioned image
 	width: 100%;
 	background-color: rgb(142, 143, 187);
 	overflow: hidden;
+
+	@include media-breakpoint-down(lg) {
+		z-index: 50; // so the news panel can slide out from underneath
+	}
 
 	> div {
 		color: whitesmoke;
@@ -36,7 +44,8 @@ section {
 	> img {
 		display: block;
 		position: absolute;
-		width: 100%;
+		min-width: 100%;
+		min-height: 100%;
 		filter: brightness(0.3) blur(5px); //brightness(0.3) blur(10px);
 	}
 
@@ -105,7 +114,15 @@ main {
 			width: 100%;
 			white-space: nowrap;
 			overflow: hidden;
-			transition: width 1s ease-out; // for pc panel slide out
+			transition: width 1s ease-out, height 1s ease-out; // for pc panel slide out
+
+			@include media-breakpoint-up(lg) {
+				height: 100%;
+			}
+
+			@include media-breakpoint-down(lg) {
+				height: 80%;
+			}
 
 			h1 {
 				position: absolute;
@@ -176,7 +193,8 @@ main {
 	@include media-breakpoint-down(lg) {
 		top: 40%;
 		height: 60%;
-		z-index: -1;
+		z-index: 40;
+		background-color: rgb(86, 79, 110);
 	}
 
 	.carousel-control-prev, .carousel-control-next {

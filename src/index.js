@@ -120,7 +120,7 @@ loadManager.onLoad = () => {
 					checkbox.checked = true;
 					checkbox.dispatchEvent(new Event('change'));
 				}
-			}, 3200)
+			}, isLargeDevice() ? 3200 : 1400)
 		},
 		defaults: {
 			duration: 1.5,

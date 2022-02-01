@@ -49,13 +49,17 @@
 
 			@include media-breakpoint-up(lg) {
 				& ~ .viewport-outer-container .viewport-inner-container {
-					 width: 55%;
+					width: 55%;
 				}
 			}
 
 			@include media-breakpoint-down(lg) {
 				& ~ .viewport-outer-container {
-					 height: 40%;
+					height: 40%;
+
+					.viewport-inner-container {
+						height: 100%;
+					}
 				}
 			}
 		}

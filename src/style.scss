@@ -1,5 +1,20 @@
 @use "header";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 
 body {
     background-color: #acc3e2;
+}
+
+.large-device-only {
+    @include media-breakpoint-down(lg) {
+        display: none !important;
+    }
+}
+
+.small-device-only {
+    @include media-breakpoint-up(lg) {
+        display: none !important;
+    }
 }
