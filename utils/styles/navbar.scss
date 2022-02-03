@@ -30,12 +30,54 @@
 	}
 }
 
-.nav-bar {
-	@include media-breakpoint-down(lg) {
+.mobile-navbar__overlay {
+	@include media-breakpoint-up(lg) {
 		display: none;
+	}
+
+	@at-root #mobile-navbar__checkbox:not(:checked) ~ .mobile-navbar__overlay {
+		display: none;
+	}
+
+	@at-root #mobile-navbar__checkbox:checked ~ .mobile-navbar__overlay {
+		display: block;
+		opacity: 0.5; // TODO - fix overlay not being visible
+	}
+
+	position: fixed;
+	height: calc(100vh - 40px);
+	width: 100vw;
+	top: 40px;
+	z-index: 999;
+	color: black;
+	opacity: 0;
+	transition: opacity 0.4s ease-out;
+}
+
+.nav-bar {
+	top: 0;
+	background-color: rgb(79, 17, 179);
+	border-style: solid;
+	border-color: white;
+
+	@include media-breakpoint-down(lg) {
+
+		@at-root #mobile-navbar__checkbox:not(:checked) ~ .nav-bar {
+			transform: translateX(-200px);
+		}
+
+		@at-root #mobile-navbar__checkbox:checked ~ .nav-bar {
+			transform: translateX(0px);
+		}
+
+		display: flex;
+		flex-direction: column;
+		top: 40px;
 		position: fixed;
-		height: 40px;
-		border-width: 1px 0 1px 0;
+		height: calc(100vh - 40px);
+		width: 200px;
+		border-width: 0 2px 0 0;
+		transition: transform 0.4s ease-out;
 	}
 
 	@include media-breakpoint-up(lg) {
@@ -46,11 +88,7 @@
 		border-width: 3px 0 3px 0;
 	}
 
-	top: 0;
-	background-color: rgb(79, 17, 179);
-	border-style: solid;
 
-	border-color: white;
 
 	& > a {
 		color: whitesmoke !important;
@@ -61,6 +99,11 @@
 		text-shadow: 0 0 10px #d888e3;
 		height: 100%;
 		padding-top: 15px;
+
+		@include media-breakpoint-down(lg) {
+			margin-left: 34px;
+			padding-top: 30px;
+		}
 	}
 
     #login.dropdown-toggle::after {

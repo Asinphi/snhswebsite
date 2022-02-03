@@ -57,7 +57,7 @@ section {
 		@include media-breakpoint-down(lg) {
 			padding-top: 50px;
 			opacity: 99%;
-			background-color: #5663a5;
+			background-color: #55506f;
 		}
 
 		> div {
@@ -65,16 +65,15 @@ section {
 			height: 25vw;
 			background-color: #4a95c0;
 			box-shadow: 0px 0px 10px 2px #a6d9e2;
-			border-radius: 5px;
 			overflow-y: auto;
 			scrollbar-width: thin;
 			scrollbar-color: rgb(54, 54, 54);
 			padding: 20px 30px;
-			color: #e0e2b8;
-			text-shadow: 0 0 2px #c4cd75;
+			color: #a7cbcb;
+			text-shadow: 0 0 2px #71898b;
 			min-width: 266px;
 			min-height: 266px;
-			margin-bottom: 50px;
+			margin: 0 20px 30px 20px;
 			opacity: 0%; // animated by gsap
 			transform: translateY(30px); // also animated
 		}
