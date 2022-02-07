@@ -103,6 +103,15 @@
 		}
 	}
 
+	& > .btn-close {
+		@include media-breakpoint-up(lg) {
+			display: none;
+		}
+
+		margin-top: 10px;
+		margin-left: 30px;
+		height: 300px;
+	}
 
 	& > a {
 		color: whitesmoke !important;
@@ -117,6 +126,14 @@
 		@include media-breakpoint-down(lg) {
 			margin-left: 34px;
 			padding-top: 30px;
+		}
+	}
+
+	& > ul {
+		@include media-breakpoint-down(lg) {
+			transform: translate(50vw,-50vh) translate(-50%, 50%) !important;
+			width: 80vw;
+			max-width: 280px;
 		}
 	}
 
