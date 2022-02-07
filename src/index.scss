@@ -76,6 +76,15 @@ section {
 			margin: 0 20px 30px 20px;
 			opacity: 0%; // animated by gsap
 			transform: translateX(-30px); // also animated
+
+			> p {
+				font-size: 1.2rem;
+				font-family: "Exo 2", sans-serif;
+			}
+
+			> h2 {
+				font-family: "Exo 2", sans-serif;
+			}
 		}
 	}
 }

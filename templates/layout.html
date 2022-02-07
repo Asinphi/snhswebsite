@@ -13,6 +13,7 @@
         {% set file_name = self._TemplateReference__context.name %}
         <link href="/static/{{ file_name[:file_name.rindex('.')] }}.css" rel="stylesheet">
     {% endblock %}
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600&display=swap" rel="stylesheet">
 </head>
 <body id="body-override">
     {% block content %}
