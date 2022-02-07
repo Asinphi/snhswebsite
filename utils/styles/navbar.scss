@@ -20,7 +20,16 @@
 	background-color: rgba(87, 57, 108, 0.3);
 	color: whitesmoke;
 
-	& > h1 {
+	a {
+		text-decoration: none;
+		color: unset;
+	}
+
+	h1 {
+		@media (max-width: 358px) {
+			font-size: 23px !important;
+		}
+
 		line-height: 40px;
 		font-family: "Exo 2", sans-serif;
 		text-shadow: 0 0 5px #fff, 0 0 20px #16b8b8;
@@ -88,6 +97,11 @@
 		border-width: 3px 0 3px 0;
 	}
 
+	.navbar__logo-container {
+		@include media-breakpoint-down(lg) {
+			display: none;
+		}
+	}
 
 
 	& > a {
@@ -142,7 +156,7 @@
 }
 
 .navbar__logo {
-	height: 200px;
+	height: 12.5vw;
 	left: 0;
 	transform: translateY(-45%);
 }

@@ -1,16 +1,31 @@
 @use "navbar";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/mixins";
 
 .header__title {
     margin: 10px;
     margin-left: 260px;
     font-size: 50px;
     font-weight: 470;
-    font-family: "Roboto", sans-serif;
+    font-family: "Exo 2", sans-serif;
     color: whitesmoke;
     text-shadow: 0 0 5px #fff, 0 0 20px #16b8b8;
+
+    @media (max-width: 1284px) {
+        font-size: 40px;
+    }
+
+    @media (max-width: 1080px) {
+        font-size: 30px;
+    }
 }
 
 .header {
+    @include media-breakpoint-down(lg) {
+        display: none;
+    }
+
     max-height: 80px;
     top: 0;
     position: sticky;
@@ -18,7 +33,7 @@
     justify-content: flex-start;
     align-items: center;
     background: rgb(11,34,94);
-    background: linear-gradient(128deg, rgba(11,34,94,1) 27%, rgba(23,71,135,1) 47%, rgba(13,51,78,1) 73%, rgba(55,71,117,1) 91%);
+    background: linear-gradient(128deg, #6327be 27%, #521787 47%, #2c0d4e 73%, #5a3775 91%);
     z-index: 200;
 }
 
