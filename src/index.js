@@ -18,7 +18,7 @@ const isLargeDevice = () => window.innerWidth >= 992;
 			start: "top 90%"
 		},
 		opacity: "100%",
-		transform: "translateY(0px)",
+		transform: "translateX(0px)",
 		stagger: function(index, target, list) {
 			return (index == 0 ? 0 : 0.2)
 		},

@@ -75,7 +75,7 @@ section {
 			min-height: 266px;
 			margin: 0 20px 30px 20px;
 			opacity: 0%; // animated by gsap
-			transform: translateY(30px); // also animated
+			transform: translateX(-30px); // also animated
 		}
 	}
 }
@@ -107,7 +107,10 @@ main {
 			rgb(74, 16, 115) 72%,
 			rgb(121, 15, 214) 93%
 		);
-		transition: height 1s ease-out; // for mobile panel slide out
+
+		@include media-breakpoint-down(lg) {
+			transition: height 1s ease-out; // for mobile panel slide out
+		}
 
 		.viewport-inner-container {
 			width: 100%;
