@@ -38,11 +38,11 @@
             <form id="login-form" action="/auth/cookie/login" method="POST" class="px-4 py-3" onsubmit="return login()">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input name="username" type="email" class="form-control" id="email" placeholder="email@example.com" required>
+                    <input name="username" type="email" class="form-control" id="email" placeholder="email@example.com" autocomplete="username" required>
                 </div>
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
-                    <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                    <input name="password" type="password" class="form-control" id="password" placeholder="Password" autocomplete="new-password" required>
                     <div class="login-form__error login-form__error--unactivated">
                         <span class="text-danger">Error. Cannot login.</span>
                     </div>
