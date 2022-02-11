@@ -27,6 +27,11 @@ const isLargeDevice = () => window.innerWidth >= 992;
 	})
 }
 
+{ // Tooltips
+	for (const el of document.querySelectorAll("[data-bs-toggle='tooltip']"))
+		new bootstrap.Tooltip(el); //?
+}
+
 const canvas = document.getElementById("3d-viewport");
 canvas.height = canvas.parentElement.innerHeight;
 canvas.width = canvas.parentElement.clientWidth;

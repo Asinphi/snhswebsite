@@ -89,6 +89,21 @@ section {
 	}
 }
 
+.boxes-subsection__requirements {
+  &__join-btn {
+	display: block;
+	margin: 40px auto;
+	border-radius: 17px;
+	box-shadow: 0px 0px 10px 2px #77c2cf;
+	background-color: #74afcb;
+	padding: 5px;
+	font-size: 1.6rem;
+	font-family: 'Exo 2', sans-serif;
+	color: whitesmoke;
+	text-shadow: 0 0 10px #2ccfce;
+  }
+}
+
 main {
 	@include media-breakpoint-up(lg) {
 		height: calc(100vh - 60px);
