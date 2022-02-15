@@ -103,6 +103,34 @@ section {
 	}
 }
 
+.boxes-subsection__contact {
+	> div {
+		display: flex;
+		flex-flow: column;
+		justify-content: space-between;
+		height: 70%;
+
+		> div {
+			display: flex;
+			flex-flow: row;
+			align-items: center;
+			justify-content: flex-start;
+			height: 30%;
+
+			> img {
+				max-height: 80%;
+			}
+
+			a {
+				color: unset;
+				text-decoration: unset;
+				margin-left: 5px;
+				line-height: 15px;
+			}
+		}
+	}
+}
+
 .boxes-subsection__requirements {
 	&__join-btn {
 		display: block;
