@@ -77,7 +77,21 @@ section {
 			opacity: 0%; // animated by gsap
 			transform: translateX(-30px); // also animated
 
-			p, li {
+			&::-webkit-scrollbar {
+				width: 8px;
+				height: 8px;
+			}
+
+			&::-webkit-scrollbar-track {
+				opacity: 0.5;
+			}
+
+			&::-webkit-scrollbar-thumb {
+				border-radius: 10px;
+				background-color: rgba(181, 232, 231, 0.5);
+			}
+
+			p, li, span {
 				font-size: 1.2rem;
 				font-family: "Exo 2", sans-serif;
 			}
