@@ -14,6 +14,7 @@ module.exports = {
         index: "./src/index.js",
         community: "./src/community.js",
         discussion: "./src/discussion.js",
+        tutoring: "./src/tutoring.js",
     },
     devtool: 'inline-source-map',
     plugins: [

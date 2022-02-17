@@ -26,3 +26,8 @@ async def community_page(request: Request, user: User = optional_user):
 @app.get("/community/discussion/{discussion_id}")
 async def discussion_page(request: Request, user: User = required_user):
     return render_template("discussion.html", request, **user_dict(user))
+
+
+@app.get("/tutoring")
+async def tutoring_page(request: Request, user: User = optional_user):
+    return render_template("tutoring.html", request, **user_dict(user))
