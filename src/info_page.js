@@ -1,0 +1,1 @@
+import "./info_page.scss";

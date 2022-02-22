@@ -31,3 +31,8 @@ async def discussion_page(request: Request, user: User = required_user):
 @app.get("/tutoring")
 async def tutoring_page(request: Request, user: User = optional_user):
     return render_template("tutoring.html", request, **user_dict(user))
+
+
+@app.get("/officers")
+async def officers_page(request: Request, user: User = optional_user):
+    return render_template("officers.html", request, **user_dict(user))
