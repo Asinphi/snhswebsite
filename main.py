@@ -36,3 +36,18 @@ async def tutoring_page(request: Request, user: User = optional_user):
 @app.get("/officers")
 async def officers_page(request: Request, user: User = optional_user):
     return render_template("officers.html", request, **user_dict(user))
+
+
+@app.get("/competitions")
+async def competitions_page(request: Request, user: User = optional_user):
+    return render_template("competitions.html", request, **user_dict(user))
+
+
+@app.get('/points')
+async def points_page(request: Request, user: User = optional_user):
+    return render_template("points.html", request, **user_dict(user))
+
+
+@app.get('/events')
+async def events_page(request: Request, user: User = optional_user):
+    return render_template('events.html', request, **user_dict(user))
