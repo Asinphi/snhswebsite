@@ -1,4 +1,4 @@
-<div class="carousel-item active">
+{% set announcement1 %}
     <h1>Zoo Field Trip 3/17/22</h1>
     <br>
     <p><b>SNHS is planning a field trip to Zoo Miami/Dog Shelter on March 17th (last day before spring break)!</b></p>
@@ -8,9 +8,34 @@
     <img src="https://images.miamiandbeaches.com/getmedia/c2822121-3f10-466f-9f61-0bceff8a69d7/Zoo-Miami-Giraffe-feeding-1440x900.jpg.aspx?width=1440&height=900&ext=.jpg">
     <br>
     <img src="https://www.rd.com/wp-content/uploads/2019/01/shutterstock_385461856.jpg?fit=700,467">
-</div>
-<div class="carousel-item">
+{% endset %}
+{% set announcement2 %}
     <h1>Tutoring Reminder</h1>
     <br>
     <p>Please remember that SNHS members are obligated to <a href="/tutoring">tutor</a> two times in quarter 3, and three times if you have not tutored at least twice in the first semester. Those that do not fulfill this requirement may be removed from the club.</p>
-</div>
+{% endset %}
+
+{% set announcements = {"Zoo Field Trip 3/17/22" : announcement1, "Tutoring Reminder" : announcement2 } %}
+
+{% macro get_announcements(bootstrap_component) %}
+    {% for title, content in announcements.items() %}
+        {% if bootstrap_component == "carousel" %}
+            <div class="carousel-item{{ ' active' if loop.first else '' }}">
+                 {{ content }}
+            </div>
+        {% elif bootstrap_component == "accordion" %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-{{ loop.index0 }}">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ loop.index0 }}" aria-expanded="{{ 'true' if loop.first else 'false' }}" aria-controls="collapse-{{ loop.index0 }}">
+                        {{ title }}
+                    </button>
+                    <div id="collapse-{{ loop.index0 }}" class="accordion-collapse collapse{{ ' show' if loop.first else ''}}" aria-labelledby="heading-{{ loop.index0 }}" data-bs-parent="#accordion">
+                        <div class="accordion-body">
+                            {{ content }}
+                        </div>
+                    </div>
+                </h2>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endmacro %}

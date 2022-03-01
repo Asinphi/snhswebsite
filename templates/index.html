@@ -29,7 +29,8 @@
             -->
         </div>
         <div class="carousel-inner">
-            {% include 'components/announcements.html' %}
+            {% import 'components/announcements.html' as announcements %}
+            {{ announcements.get_announcements('carousel') }}
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#news-panel" data-bs-slide="prev" tabindex="-1">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
