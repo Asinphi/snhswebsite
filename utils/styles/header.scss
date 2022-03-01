@@ -3,6 +3,10 @@
 @import "bootstrap/scss/variables";
 @import "bootstrap/scss/mixins";
 
+.outer-header {
+    z-index: 1000;
+}
+
 .header__title {
     margin: 10px;
     margin-left: 260px;
