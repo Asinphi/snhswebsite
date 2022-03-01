@@ -51,3 +51,8 @@ async def points_page(request: Request, user: User = optional_user):
 @app.get('/events')
 async def events_page(request: Request, user: User = optional_user):
     return render_template('events.html', request, **user_dict(user))
+
+
+@app.get('/faq')
+async def faq_page(request: Request, user: User = optional_user):
+    return render_template('faq.html', request, **user_dict(user))
