@@ -1,9 +1,17 @@
-{% extends "info_page.html" %}
+{% extends "layout.html" %}
 
 {% block head %}
+{{ super()}}
 {% endblock %}
 
-{% block main %}
-    <h1>Events</h1>
-    {% include 'components/announcements.html' %}
+{% block content %}
+    {{ super() }}
+    <main>
+        <h1>Events</h1>
+        <div class="accordion" id="accordion">
+            {% import 'components/announcements.html' as announcements %}
+            {{ announcements.get_announcements('accordion') }}
+        </div>
+    </main>
+    <script src="static/events.js" type="module"></script>
 {% endblock %}

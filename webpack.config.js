@@ -14,6 +14,7 @@ module.exports = {
         index: "./src/index.js",
         community: "./src/community.js",
         discussion: "./src/discussion.js",
+        events: "./src/events.js",
         info_page: "./src/info_page.js",
     },
     devtool: 'inline-source-map',

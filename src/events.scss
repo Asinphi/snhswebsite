@@ -1,0 +1,15 @@
+@use "style";
+@use "info_page";
+
+#body-override .carousel-item {
+	float: unset;
+}
+
+#body-override main {
+	background-color: unset;
+}
+
+#body-override .accordion * {
+	background-color: rgb(140, 131, 165);
+	color: whitesmoke;
+}
