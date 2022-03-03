@@ -39,3 +39,11 @@
         {% endif %}
     {% endfor %}
 {% endmacro %}
+
+{% macro get_carousel_indicators(carousel_selector) %}
+    <div class="carousel-indicators">
+        {% for title, content in announcements.items() %}
+            <button type="button" data-bs-target="{{ carousel_selector }}" data-bs-slide-to="{{ loop.index0 }}" class="{{ 'active' if loop.first else '' }}" aria-current="{{ 'true' if loop.first else 'false' }}" aria-label="Slide {{ loop.index }}" tabindex="-1"></button>
+        {% endfor %}
+    </div>
+{% endmacro %}

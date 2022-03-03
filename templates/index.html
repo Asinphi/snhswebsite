@@ -14,22 +14,13 @@
     <div class="panel-hover h-75 position-absolute large-device-only" style="opacity: 0; top: 50%; width: 10%; transform: translateY(-50%); z-index: 1050;"></div>
     <input id="news-panel-toggle" class="panel-check" type="checkbox" style="display: none;" tabindex="-1">
     <div id="news-panel" class="important-news panel carousel slide" data-bs-ride="carousel" data-bs-interval=30000>
+        {% import 'components/announcements.html' as announcements %}
         <button type="button" class="btn-close btn-close-white large-device-only" aria-label="Close" style="float: right;"></button>
         <label for="news-panel-toggle" class="btn-panel">
             <!-- TODO: Put icon here -->
         </label>
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#news-panel" data-bs-slide-to="0" class="active"
-                aria-current="true" aria-label="Slide 1" tabindex="-1"></button>
-            <button type="button" data-bs-target="#news-panel" data-bs-slide-to="1"
-                aria-label="Slide 2" tabindex="-1"></button>
-            <!--
-            <button type="button" data-bs-target="#news-panel" data-bs-slide-to="2"
-                aria-label="Slide 3" tabindex="-1"></button>
-            -->
-        </div>
+        {{ announcements.get_carousel_indicators('#news-panel') }}
         <div class="carousel-inner">
-            {% import 'components/announcements.html' as announcements %}
             {{ announcements.get_announcements('carousel') }}
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#news-panel" data-bs-slide="prev" tabindex="-1">
