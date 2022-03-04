@@ -1,13 +1,10 @@
-{% extends "layout.html" %}
+{% extends "info_page.html" %}
 
 {% block head %}
-<link rel="stylesheet" href='/static/style.css'>
-{% endblock %}}
+{% endblock %}
 
 {% block content %}
-{{ super() }}
-
-<div style="margin-top: 60px; margin-left: 60px;">
-    <span><strong>You must be a club member to perform this action. If you are a member, please log in.</strong></span>
-</div>
+    <h2>401: Unauthorized Access</h2>
+    <br>
+    <p>You do not have authorization to perform this action. This means you have to a logged-in club member or, if you are already logged in, a club officer with admin privileges.</p>
 {% endblock %}
