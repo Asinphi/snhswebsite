@@ -6,6 +6,7 @@ from users import User, fastapi_users, user_dict
 
 optional_user = Depends(fastapi_users.current_user(active=True, optional=True))
 required_user = Depends(fastapi_users.current_user(active=True))
+admin_user = Depends(fastapi_users.current_user(is_superuser=True))
 
 
 @app.get("/")
@@ -55,4 +56,9 @@ async def events_page(request: Request, user: User = optional_user):
 
 @app.get('/faq')
 async def faq_page(request: Request, user: User = optional_user):
+    return render_template('faq.html', request, **user_dict(user))
+
+
+@app.get('/admin')
+async def admin_page(request: Request, user: User = admin_user):
     return render_template('faq.html', request, **user_dict(user))
