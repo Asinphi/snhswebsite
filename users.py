@@ -142,3 +142,10 @@ if populate_users:
             True, True, True
         )
     )
+    asyncio.create_task(
+        fastapi_users.create_user(
+            UserCreate(name="ADMIN", graduation_year=2022, points=0, email="admin@gmail.com", password="foobar",
+                       is_verified=True, is_active=True, is_superuser=True),
+            True, True, True
+        )
+    )
