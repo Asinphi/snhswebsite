@@ -9,6 +9,7 @@
     <link rel="apple-touch-icon" href="/assets/SNHS%20logo.png" type="image/png"/>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
     <link href="/static/info_page.css" rel="stylesheet">
     {% block head %}
     {% endblock %}
@@ -20,6 +21,9 @@
         {% block content %}
         {% endblock %}
     </main>
+    <div class="canvas-container">
+        <canvas id="background-canvas"></canvas>
+    </div>
     <script src="/static/info_page.js" type="module"></script>
 </body>
 </html>
