@@ -1,3 +1,5 @@
+import os
+
 from fastapi import Request, Depends, Query
 
 from app import app, render_template
@@ -54,9 +56,9 @@ async def events_page(request: Request, user: User = optional_user):
     return render_template('events.html', request, **user_dict(user))
 
 
-@app.get('/faq')
-async def faq_page(request: Request, user: User = optional_user):
-    return render_template('faq.html', request, **user_dict(user))
+@app.get('/album')
+async def album_page(request: Request, user: User = optional_user):
+    return render_template('album.html', request, **user_dict(user), photos=os.listdir("assets/PhotosPage"))
 
 
 @app.get('/admin')
