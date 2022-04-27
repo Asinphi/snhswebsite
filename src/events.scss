@@ -13,3 +13,11 @@
 	background-color: rgb(140, 131, 165);
 	color: whitesmoke;
 }
+
+.canvas-container {
+	width: 100%;
+	height: 100vh;
+	position: fixed;
+	top: 0;
+	z-index: -1;
+}

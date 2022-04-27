@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 
 {% block head %}
-{{ super()}}
+    {{ super()}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.1/gsap.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -13,5 +14,8 @@
             {{ announcements.get_announcements('accordion') }}
         </div>
     </main>
+    <div class="canvas-container">
+        <canvas id="background-canvas"></canvas>
+    </div>
     <script src="static/events.js" type="module"></script>
 {% endblock %}
