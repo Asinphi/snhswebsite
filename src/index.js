@@ -119,6 +119,7 @@ loadManager.onLoad = () => {
 		onComplete: () => {
 			initParticles();
 			playLogoAnimation();
+			/** Because Vishal doesn't like the news panel ;-;
 			setTimeout(() => {
 				const checkbox = document.querySelector('.panel-check')
 				if (!checkbox.checked && !checkbox.initialCheck) {
@@ -126,6 +127,7 @@ loadManager.onLoad = () => {
 					checkbox.dispatchEvent(new Event('change'));
 				}
 			}, isLargeDevice() ? 3200 : 1400)
+			 **/
 		},
 		defaults: {
 			duration: 1.5,
