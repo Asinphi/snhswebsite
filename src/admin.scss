@@ -1,8 +1,16 @@
 @use "style";
 @use "info_page";
 
+h3 {
+	margin-top: 30px;
+}
+
 .nav-tabs .nav-link {
 	color: whitesmoke;
+}
+
+.new-announcement-editor__title {
+	margin-bottom: 20px;
 }
 
 .new-announcement-editor__content {
