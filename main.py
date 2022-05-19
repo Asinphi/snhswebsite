@@ -1,9 +1,12 @@
 import os
+from typing import Optional
 
-from fastapi import Request, Depends, Query
+from fastapi import Request, Depends, Query, Body
+from pydantic import BaseModel
 
 from app import app, render_template
 from users import User, fastapi_users, user_dict
+from database import get_announcements, add_announcement, set_announcement, delete_announcement
 
 
 optional_user = Depends(fastapi_users.current_user(active=True, optional=True))
@@ -13,7 +16,8 @@ admin_user = Depends(fastapi_users.current_user(superuser=True))
 
 @app.get("/")
 async def root(request: Request, user: User = optional_user):
-    return render_template("index.html", request, **user_dict(user), include_logo=False)
+    return render_template("index.html", request, **user_dict(user), include_logo=False,
+                           announcements=get_announcements())
 
 
 @app.get("/nav-bar")
@@ -53,7 +57,7 @@ async def points_page(request: Request, user: User = optional_user):
 
 @app.get('/events')
 async def events_page(request: Request, user: User = optional_user):
-    return render_template('events.html', request, **user_dict(user))
+    return render_template('events.html', request, **user_dict(user), announcements=get_announcements())
 
 
 @app.get('/album')
@@ -63,4 +67,25 @@ async def album_page(request: Request, user: User = optional_user):
 
 @app.get('/admin')
 async def admin_page(request: Request, user: User = admin_user):
-    return render_template('admin.html', request, **user_dict(user))
+    return render_template('admin.html', request, **user_dict(user), announcements=get_announcements())
+
+
+class Announcement(BaseModel):
+    idx: Optional[int]
+    title: str
+    content: str
+
+
+@app.post('/announcements/add')
+async def announcement_add(request: Request, user: User = admin_user, announcement: Announcement = Body(...)):
+    add_announcement(announcement.title, announcement.content)
+
+
+@app.post('/announcements/edit')
+async def announcement_edit(request: Request, user: User = admin_user, announcement: Announcement = Body(...)):
+    set_announcement(announcement.idx, announcement.title, announcement.content)
+
+
+@app.post('/announcements/delete')
+async def announcement_delete(request: Request, user: User = admin_user, idx: int = Query(...)):
+    delete_announcement(idx)

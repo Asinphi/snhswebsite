@@ -14,14 +14,14 @@
     <div class="panel-hover h-75 position-absolute large-device-only" style="opacity: 0; top: 50%; width: 10%; transform: translateY(-50%); z-index: 1050;"></div>
     <input id="news-panel-toggle" class="panel-check" type="checkbox" style="display: none;" tabindex="-1">
     <div id="news-panel" class="important-news panel carousel slide" data-bs-ride="carousel" data-bs-interval=30000>
-        {% import 'components/announcements.html' as announcements %}
+        {% import 'components/announcements.html' as announcements_util %}
         <button type="button" class="btn-close btn-close-white large-device-only" aria-label="Close" style="float: right;"></button>
         <label for="news-panel-toggle" class="btn-panel">
             <!-- TODO: Put icon here -->
         </label>
-        {{ announcements.get_carousel_indicators('#news-panel') }}
+        {{ announcements_util.get_carousel_indicators(announcements, '#news-panel') }}
         <div class="carousel-inner">
-            {{ announcements.get_announcements('carousel') }}
+            {{ announcements_util.get_announcements(announcements, 'carousel') }}
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#news-panel" data-bs-slide="prev" tabindex="-1">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>

@@ -1,3 +1,4 @@
+{#
 {% set announcement1 %}
     <h1>Zoo Field Trip 3/17/22</h1>
     <br>
@@ -16,14 +17,20 @@
 {% endset %}
 
 {% set announcements = {"Zoo Field Trip 3/17/22" : announcement1, "Tutoring Reminder" : announcement2 } %}
+#}
 
-{% macro get_announcements(bootstrap_component) %}
-    {% for title, content in announcements.items() %}
-        {% if bootstrap_component == "carousel" %}
+{% macro get_announcements(announcements, bootstrap_component) %}
+    {% if bootstrap_component == "carousel" %}
+        <p>{{ name }}</p>
+        {% for idx, title, content in announcements %}
             <div class="carousel-item{{ ' active' if loop.first else '' }}">
-                 {{ content }}
+                <h1>{{ title }}</h1>
+                <br>
+                {{ content|safe }}
             </div>
-        {% elif bootstrap_component == "accordion" %}
+        {% endfor %}
+    {% elif bootstrap_component == "accordion" %}
+        {% for idx, title, content in announcements %}
             <div class="accordion-item">
                 <h2 class="accordion-header" id="heading-{{ loop.index0 }}">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-{{ loop.index0 }}" aria-expanded="{{ 'true' if loop.first else 'false' }}" aria-controls="collapse-{{ loop.index0 }}">
@@ -31,18 +38,20 @@
                     </button>
                     <div id="collapse-{{ loop.index0 }}" class="accordion-collapse collapse{{ ' show' if loop.first else ''}}" aria-labelledby="heading-{{ loop.index0 }}" data-bs-parent="#accordion">
                         <div class="accordion-body">
-                            {{ content }}
+                            <h1>{{ title }}</h1>
+                            <br>
+                            {{ content|safe }}
                         </div>
                     </div>
                 </h2>
             </div>
-        {% endif %}
-    {% endfor %}
+        {% endfor %}
+    {% endif %}
 {% endmacro %}
 
-{% macro get_carousel_indicators(carousel_selector) %}
+{% macro get_carousel_indicators(announcements, carousel_selector) %}
     <div class="carousel-indicators">
-        {% for title, content in announcements.items() %}
+        {% for idx, title, content in announcements %}
             <button type="button" data-bs-target="{{ carousel_selector }}" data-bs-slide-to="{{ loop.index0 }}" class="{{ 'active' if loop.first else '' }}" aria-current="{{ 'true' if loop.first else 'false' }}" aria-label="Slide {{ loop.index }}" tabindex="-1"></button>
         {% endfor %}
     </div>

@@ -10,8 +10,8 @@
     <main>
         <h1>Events</h1>
         <div class="accordion" id="accordion">
-            {% import 'components/announcements.html' as announcements %}
-            {{ announcements.get_announcements('accordion') }}
+            {% import 'components/announcements.html' as announcements_util %}
+            {{ announcements_util.get_announcements(announcements, 'accordion') }}
         </div>
     </main>
     <div class="canvas-container">

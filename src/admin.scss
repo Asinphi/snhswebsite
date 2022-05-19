@@ -1,2 +1,30 @@
 @use "style";
 @use "info_page";
+
+.nav-tabs .nav-link {
+	color: whitesmoke;
+}
+
+.new-announcement-editor__content {
+	background-color: #8c83a5;
+	color: whitesmoke;
+}
+
+.ql-toolbar.ql-snow {
+	background-color: #a08ab0;
+	color: whitesmoke;
+}
+
+#body-override .carousel-item {
+	float: unset;
+}
+
+.accordion .accordion-item {
+	background-color: rgb(140, 131, 165);
+	color: whitesmoke;
+}
+
+#body-override .accordion-button {
+	background-color: rgb(140, 131, 165);
+	color: whitesmoke;
+}
