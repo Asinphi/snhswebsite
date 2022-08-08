@@ -75,4 +75,6 @@ This will only run the backend. Since the frontend files use webpack, no changes
 ```
 npm run watch
 ```
-This will detect all changes you make to the frontend files and recompile them. This is the first command I run whenever I start working on this project.
+This will detect all changes you make to the frontend files and recompile them. This is the first command I run whenever I start working on this project. When the program is running, you'll be able to see the website on your local computer at http://127.0.0.1:8000.
+
+For any problems, you can open an issue in this repository's Issues tab.
