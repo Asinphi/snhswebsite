@@ -77,4 +77,12 @@ npm run watch
 ```
 This will detect all changes you make to the frontend files and recompile them. This is the first command I run whenever I start working on this project. When the program is running, you'll be able to see the website on your local computer at http://127.0.0.1:8000.
 
+If you changed some code and it works when tested and you want to push those changes to the repository, then I recommend you use your IDE's Github commit tools for more control over your individual commits. However, you can also commit and push all your changes at once using the following commands:
+```
+git add .
+git commit -m "message about what I did"
+git push origin main
+```
+After pushing, Heroku will automatically detect it and deploy your changes to the public website at cypressbaysnhs.com.
+
 For any problems, you can open an issue in this repository's Issues tab.
