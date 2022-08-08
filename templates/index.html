@@ -80,10 +80,18 @@
                 <li>An unweighted GPA of at least 3.5 in all science courses.</li>
                 <li>Completion of at least 2 Honors, Advanced Placement, or AICE science courses.</li>
             </ul>
-            <button type="button" class="boxes-subsection__requirements__join-btn" data-bs-toggle="tooltip"
-                    data-bs-placement="bottom" title="Applications closed for the 2021-2022 school year">
-                JOIN NOW
-            </button>
+            {% if join_form_enabled == "True" %}
+                <a href="{{ join_form }}">
+                    <button type="button" class="boxes-subsection__requirements__join-btn">
+                        JOIN NOW
+                    </button>
+                </a>
+            {% else %}
+                <button type="button" class="boxes-subsection__requirements__join-btn" data-bs-toggle="tooltip"
+                        data-bs-placement="bottom" title="Applications currently closed">
+                    JOIN NOW
+                </button>
+            {% endif %}
         </div>
         <div class="boxes-subsection__activities">
             <h2>Activities</h2>

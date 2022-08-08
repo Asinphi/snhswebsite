@@ -1,13 +1,13 @@
 import os
-from typing import Optional
+from typing import Optional, List, Tuple, Union, Dict
 
 from fastapi import Request, Depends, Query, Body
 from pydantic import BaseModel
 
 from app import app, render_template
 from users import User, fastapi_users, user_dict
-from database import get_announcements, add_announcement, set_announcement, delete_announcement
-
+from database import get_announcements, add_announcement, set_announcement, delete_announcement, get_admin_settings, \
+    set_admin_settings, AdminSettings, get_admin_setting
 
 optional_user = Depends(fastapi_users.current_user(active=True, optional=True))
 required_user = Depends(fastapi_users.current_user(active=True))
@@ -17,6 +17,8 @@ admin_user = Depends(fastapi_users.current_user(superuser=True))
 @app.get("/")
 async def root(request: Request, user: User = optional_user):
     return render_template("index.html", request, **user_dict(user), include_logo=False,
+                           join_form=get_admin_setting("join_form"),
+                           join_form_enabled=get_admin_setting("join_form_enabled"),
                            announcements=get_announcements())
 
 
@@ -52,7 +54,7 @@ async def competitions_page(request: Request, user: User = optional_user):
 
 @app.get('/points')
 async def points_page(request: Request, user: User = optional_user):
-    return render_template("points.html", request, **user_dict(user))
+    return render_template("points.html", request, points_link=get_admin_setting("points"), **user_dict(user))
 
 
 @app.get('/events')
@@ -67,7 +69,8 @@ async def album_page(request: Request, user: User = optional_user):
 
 @app.get('/admin')
 async def admin_page(request: Request, user: User = admin_user):
-    return render_template('admin.html', request, **user_dict(user), announcements=get_announcements())
+    return render_template('admin.html', request, **user_dict(user), announcements=get_announcements(),
+                           settings=get_admin_settings())
 
 
 class Announcement(BaseModel):
@@ -89,3 +92,9 @@ async def announcement_edit(request: Request, user: User = admin_user, announcem
 @app.post('/announcements/delete')
 async def announcement_delete(request: Request, user: User = admin_user, idx: int = Query(...)):
     delete_announcement(idx)
+
+
+@app.post('/admin/settings/set')
+async def admin_setting_set(request: Request, user: User = admin_user, new_settings: AdminSettings = Body(...)):
+    new_settings_dict: Dict[str, Union[str, bool]] = new_settings.dict()
+    set_admin_settings([(name, value) for name, value in new_settings_dict.items()])

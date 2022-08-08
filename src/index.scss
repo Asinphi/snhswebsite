@@ -132,6 +132,10 @@ section {
 }
 
 .boxes-subsection__requirements {
+	> a {
+		text-decoration: none;
+	}
+
 	&__join-btn {
 		display: block;
 		margin: 40px auto;

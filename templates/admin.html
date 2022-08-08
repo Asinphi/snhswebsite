@@ -23,8 +23,19 @@
             </li>
         </ul>
         <div class="tab-content" id="tab-content">
-            <div class="tab-pane fade show active" id="settings" role="tabpanel" area-labelledby="settings-tab">
-                <span>TODO: settings like whether the join form is enabled</span>
+            <div class="settings__tab tab-pane fade show active" id="settings" role="tabpanel" area-labelledby="settings-tab">
+                <span><u>Setting</u></span> <span style="float: right;"><u>Value</u></span>
+                {% for name, value in settings %}
+                <br>
+                <span class="settings__row">
+                    <label for="{{ name }}-input">
+                        <span>{{ name }}</span>
+                    </label>
+                    <input name="{{ name }}" type="{{ 'checkbox' if value is boolean else 'text'}}" id="{{ name }}-input">
+                </span>
+                {% endfor %}
+                <br>
+                <button class="btn btn-primary settings__save-btn">Save</button>
             </div>
             <div class="tab-pane fade" id="announcements" role="tabpanel" area-labelledby="announcements-tab">
                 <h3>Post new announcement</h3>
@@ -65,6 +76,9 @@
             </div>
         </div>
     </main>
+    <script>
+        const settings = {{ settings|tojson|safe }};
+    </script>
     <script src="/static/admin.js" type="module"></script>
 {% endblock %}
 

@@ -9,6 +9,23 @@ h3 {
 	color: whitesmoke;
 }
 
+.settings__row {
+	margin-top: 10px;
+	display: block;
+
+	> input {
+		float: right;
+
+		&[type="checkbox"] {
+			transform: scale(2) translateY(50%);
+		}
+	}
+}
+
+.settings__save-btn, .settings__reset-btn {
+	margin-top: 40px;
+}
+
 .new-announcement-editor__title {
 	margin-bottom: 20px;
 }

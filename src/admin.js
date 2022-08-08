@@ -95,3 +95,29 @@ for (const deleteButton of document.querySelectorAll(".announcement__delete")) {
         });
     });
 }
+
+{
+    // const settings = JSON.parse(document.querySelector(".settings__tab").dataset.initialValues);
+    for (const setting of settings) {
+        const [name, value] = setting;
+        const inputEl = document.getElementById(`${name}-input`);
+        if (typeof value == "boolean")
+            inputEl.checked = value;
+        else
+            inputEl.value = value;
+    }
+    document.querySelector(".settings__save-btn").addEventListener("click", () => {
+        fetch("/admin/settings/set", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(settings.reduce((body, pair) => {
+                const name = pair[0];
+                const el = document.getElementById(`${name}-input`);
+                body[name] = el.type === "checkbox" ? el.checked : el.value;
+                return body;
+            }, {})),
+        })
+    });
+}
