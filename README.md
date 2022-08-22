@@ -17,7 +17,7 @@ No matter which kind of webmaster you are, below is my guide on getting started.
 
 ## Quickstart
 
-The first thing you need to do is find the document with important secret credentials that you'll need as webmaster to access the website. You will find it if you go to the shared folder in the Google Drive of the club's gmail, cypressbaysnhs@gmail.com. There, you'll find a document I shared titled *WEBMASTER CREDENTIALS*. You may need to use the search bar to find it. As webmaster, you'll be responsible for managing the website through three different platforms: cypressbaysnhs.com, Heroku, and NameCheap. Advanced webmasters who want to contribute to the code behind the website will fourthly manage the website through Github.
+The first thing you need to do is find the document with important secret credentials that you'll need as webmaster to access the website. You will find it if you go to the shared folder in the Google Drive of the club's gmail, cypressbaysnhs@gmail.com or the gmail cbhssnhswebmaster@gmail.com. There, you'll find a document I shared titled *WEBMASTER CREDENTIALS*. You may need to use the search bar to find it. As webmaster, you'll be responsible for managing the website through three different platforms: cypressbaysnhs.com, Heroku, and NameCheap. Advanced webmasters who want to contribute to the code behind the website will fourthly manage the website through Github.
 
 ## cypressbaysnhs.com admin panel
 
