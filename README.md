@@ -1,5 +1,6 @@
 # snhswebsite
 
+**Note:** Heroku, our site hosting service, killed the website in November 2022 when they terminated its free tier. It could still be hosted by logging into Heroku and paying a monthly subscription for a plan with the PostgreSQL database, but up to the club to decide whether it's worth it. Alternatively, some work can be done setting up the website with another free host and a free PostgreSQL server.
 
 View the live website at https://snhswebsite.herokuapp.com or http://cypressbaysnhs.com (assuming the domain is still active)
 
